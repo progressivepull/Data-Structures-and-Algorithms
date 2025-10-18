@@ -3,57 +3,66 @@
 <head>
   <title>Merge Analogy Visualization</title>
   <link rel="stylesheet" href="../css/common.css">
-  <script src="../js/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="../css/merge.css">
+  <script src="../lib/jquery-3.7.1.min.js"></script>
+
+  <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+
   <script src="../js/merge.js"></script>
 </head>
 <body>
-  <h1>Merge Analogy: Step-by-Step</h1>
+  <div class="container">
 
-  <h2>Initial Value in Merge Algorithm</h2>
-  <p>In the Merge Algorithm, the initial value typically refers to the starting indices used to divide and merge arrays—most commonly the <strong>left index</strong>, <strong>right index</strong>, and <strong>midpoint</strong>. These values guide the recursive breakdown and merging of subarrays.</p>
+      <h1>Merge Analogy: Step-by-Step</h1>
 
-  <h2>Key Initial Values in Merge Sort</h2>
-  <ul>
-    <li><strong>Left Index (<code>left</code>)</strong>: Starting index of the array or subarray, initially set to <code>0</code>.</li>
-    <li><strong>Right Index (<code>right</code>)</strong>: Ending index of the array or subarray, initially set to <code>n - 1</code>.</li>
-    <li><strong>Midpoint (<code>mid</code>)</strong>: Calculated as <code>mid = left + (right - left) / 2</code>.</li>
-  </ul>
+      <h2>Initial Value in Merge Algorithm</h2>
+      <p>In the Merge Algorithm, the initial value typically refers to the starting indices used to divide and merge arrays—most commonly the <strong>left index</strong>, <strong>right index</strong>, and <strong>midpoint</strong>. These values guide the recursive breakdown and merging of subarrays.</p>
 
-  <h2>Example Initialization</h2>
-  <p>For an array like <code>[38, 27, 43, 10]</code>, the initial call would be:</p>
-  <pre><code>mergeSort(arr, 0, 3);</code></pre>
-  <p>This leads to:</p>
-  <ul>
-    <li><code>mid = 0 + (3 - 0) / 2 = 1</code></li>
-    <li>Array is split into <code>[38, 27]</code> and <code>[43, 10]</code></li>
-    <li>Each half is recursively sorted and merged</li>
-  </ul>
+      <h2>Key Initial Values in Merge Sort</h2>
+      <ul>
+        <li><strong>Left Index (<code>left</code>)</strong>: Starting index of the array or subarray, initially set to <code>0</code>.</li>
+        <li><strong>Right Index (<code>right</code>)</strong>: Ending index of the array or subarray, initially set to <code>n - 1</code>.</li>
+        <li><strong>Midpoint (<code>mid</code>)</strong>: Calculated as <code>mid = left + (right - left) / 2</code>.</li>
+      </ul>
 
-  <h2>Why These Initial Values Matter</h2>
-  <ul>
-    <li>They define the boundaries for recursive division.</li>
-    <li>They ensure merging happens in the correct order.</li>
-    <li>They help maintain the algorithm’s time complexity of <strong>O(n log n)</strong>.</li>
-  </ul>
+      <h2>Example Initialization</h2>
+      <p>For an array like <code>[38, 27, 43, 10]</code>, the initial call would be:</p>
+      <pre><code>mergeSort(arr, 0, 3);</code></pre>
+      <p>This leads to:</p>
+      <ul>
+        <li><code>mid = 0 + (3 - 0) / 2 = 1</code></li>
+        <li>Array is split into <code>[38, 27]</code> and <code>[43, 10]</code></li>
+        <li>Each half is recursively sorted and merged</li>
+      </ul>
 
-  <br><br><br><br>
+      <h2>Why These Initial Values Matter</h2>
+      <ul>
+        <li>They define the boundaries for recursive division.</li>
+        <li>They ensure merging happens in the correct order.</li>
+        <li>They help maintain the algorithm’s time complexity of <strong>O(n log n)</strong>.</li>
+      </ul>
 
-  <div class="visualization-section">
+      <br><br><br><br>
 
-    <div class="input-section">
-      <label>Left Array: <input type="text" id="leftInput" placeholder="e.g. 1,3,5"></label>
-      <label>Right Array: <input type="text" id="rightInput" placeholder="e.g. 2,4,6"></label>
-      <button id="submitArrays" class="btn btn-primary">Submit Arrays</button>
-    </div>
+      <div class="visualization-section">
 
-    <button id="stepMerge" class="btn">Next Step</button>
-    <div id="explanation">Click "Next Step" to begin merging.</div>
-    <canvas id="mergeCanvas" width="700" height="250"></canvas>
+        <div class="input-section">
+          <label>Left Array: <input type="text" id="leftInput" placeholder="e.g. 1,3,5"></label>
+          <label>Right Array: <input type="text" id="rightInput" placeholder="e.g. 2,4,6"></label>
+          <button id="submitArrays" class="btn btn-primary">Submit Arrays</button>
+        </div>
+
+        <button id="stepMerge" class="btn">Next Step</button>
+        <div id="explanation">Click "Next Step" to begin merging.</div>
+        <canvas id="mergeCanvas" width="700" height="250"></canvas>
+
+      </div>
+
+
+      <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
 
   </div>
-
-
-  <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
 
   <footer>
     &copy; Progressive Pull. All rights reserved.

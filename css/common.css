@@ -20,14 +20,6 @@ html, body {
   height: 100%;
 }
 
-body {
-  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.45;
-  color: #fff;
-  background: linear-gradient(to right, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 /* Layout */
 header {
@@ -88,7 +80,7 @@ footer {
   padding: 20px;
   background-color: var(--card);
   font-size: 0.95rem;
-  color: var(--muted);
+  color:#e31010;
 }
 
 ul {
