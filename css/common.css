@@ -103,6 +103,11 @@ ul {
 
 /* Merge visualization specific */
 canvas { border: 1px solid #00000033; display: block; margin-top: 10px; }
+
+/* Merge canvas should use a white drawing background for clarity */
+#mergeCanvas {
+  background-color: #ffffff;
+}
 .input-section { margin-bottom: 10px; }
 
 /* Button styles */
@@ -158,6 +163,32 @@ canvas { border: 1px solid #00000033; display: block; margin-top: 10px; }
 }
 
 .input-section label { margin-right: 8px; }
+
+/* Visualization container styling */
+.visualization-section {
+  max-width: 760px;
+  margin: 24px auto; /* center horizontally */
+  background: rgba(255,255,255,0.04); /* slightly lighter than page */
+  border: 1px solid rgba(255,255,255,0.12); /* light border */
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.visualization-section #explanation {
+  margin: 12px 0;
+  color: #dfeff0;
+  text-align: center;
+}
+
+/* Make canvas responsive within the visualization container */
+.visualization-section canvas {
+  max-width: 100%;
+  height: auto;
+}
 
 /* Responsive tweaks */
 @media (max-width: 600px) {
