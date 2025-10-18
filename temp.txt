@@ -1,0 +1,88 @@
+   
+
+
+  <div class="input-section">
+    <label>Left Array: <input type="text" id="leftInput" placeholder="e.g. 1,3,5"></label>
+    <label>Right Array: <input type="text" id="rightInput" placeholder="e.g. 2,4,6"></label>
+    <button onclick="submitArrays()">Submit Arrays</button>
+  </div>
+
+  <button onclick="stepMerge()">Next Step</button>
+  <div id="explanation">Click "Next Step" to begin merging.</div>
+  <canvas id="mergeCanvas" width="700" height="250"></canvas>
+
+  <script>
+    const canvas = document.getElementById('mergeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let left = [1, 3, 5];
+    let right = [2, 4, 6];
+    let merged = [];
+    let i = 0, j = 0;
+    let step = 0;
+
+    function drawBox(value, x, y, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, 50, 30);
+      ctx.strokeRect(x, y, 50, 30);
+      ctx.fillStyle = 'black';
+      ctx.font = '16px sans-serif';
+      ctx.fillText(value, x + 18, y + 20);
+    }
+
+    function drawBoxes() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      left.forEach((val, idx) => {
+        const color = i > idx ? '#ccc' : '#add8e6';
+        drawBox(val, 50 + idx * 60, 30, color);
+      });
+
+      right.forEach((val, idx) => {
+        const color = j > idx ? '#ccc' : '#90ee90';
+        drawBox(val, 50 + idx * 60, 90, color);
+      });
+
+      merged.forEach((val, idx) => {
+        drawBox(val, 50 + idx * 60, 150, '#ffcccb');
+      });
+    }
+
+    function stepMerge() {
+      if (i < left.length && (j >= right.length || left[i] <= right[j])) {
+        merged.push(left[i]);
+        document.getElementById('explanation').innerText = `Step ${++step}: Take ${left[i]} from left`;
+        i++;
+      } else if (j < right.length) {
+        merged.push(right[j]);
+        document.getElementById('explanation').innerText = `Step ${++step}: Take ${right[j]} from right`;
+        j++;
+      } else {
+        document.getElementById('explanation').innerText = `Merge complete! Final array: [${merged.join(', ')}]`;
+      }
+      drawBoxes();
+    }
+
+    function submitArrays() {
+      const leftInput = document.getElementById('leftInput').value;
+      const rightInput = document.getElementById('rightInput').value;
+
+      left = leftInput.split(',').map(Number).filter(n => !isNaN(n));
+      right = rightInput.split(',').map(Number).filter(n => !isNaN(n));
+      merged = [];
+      i = 0;
+      j = 0;
+      step = 0;
+
+      document.getElementById('explanation').innerText = 'Arrays submitted. Click "Next Step" to begin merging.';
+      drawBoxes();
+    }
+
+    drawBoxes(); // Initial draw
+
+    
+  </script>
+
+  
+
+

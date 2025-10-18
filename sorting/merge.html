@@ -5,9 +5,9 @@
   <link rel="stylesheet" href="../css/common.css">
 </head>
 <body>
-  <h2>Merge Analogy: Step-by-Step</h2>
+  <h1>Merge Analogy: Step-by-Step</h1>
 
-    <h1>Initial Value in Merge Algorithm</h1>
+  <h2>Initial Value in Merge Algorithm</h2>
   <p>In the Merge Algorithm, the initial value typically refers to the starting indices used to divide and merge arrays—most commonly the <strong>left index</strong>, <strong>right index</strong>, and <strong>midpoint</strong>. These values guide the recursive breakdown and merging of subarrays.</p>
 
   <h2>Key Initial Values in Merge Sort</h2>
@@ -32,94 +32,13 @@
     <li>They define the boundaries for recursive division.</li>
     <li>They ensure merging happens in the correct order.</li>
     <li>They help maintain the algorithm’s time complexity of <strong>O(n log n)</strong>.</li>
+  </ul>
 
     <br><br><br><br>
 
-  <div class="input-section">
-    <label>Left Array: <input type="text" id="leftInput" placeholder="e.g. 1,3,5"></label>
-    <label>Right Array: <input type="text" id="rightInput" placeholder="e.g. 2,4,6"></label>
-    <button onclick="submitArrays()">Submit Arrays</button>
-  </div>
-
-  <button onclick="stepMerge()">Next Step</button>
-  <div id="explanation">Click "Next Step" to begin merging.</div>
-  <canvas id="mergeCanvas" width="700" height="250"></canvas>
-
-  <script>
-    const canvas = document.getElementById('mergeCanvas');
-    const ctx = canvas.getContext('2d');
-
-    let left = [1, 3, 5];
-    let right = [2, 4, 6];
-    let merged = [];
-    let i = 0, j = 0;
-    let step = 0;
-
-    function drawBox(value, x, y, color) {
-      ctx.fillStyle = color;
-      ctx.fillRect(x, y, 50, 30);
-      ctx.strokeRect(x, y, 50, 30);
-      ctx.fillStyle = 'black';
-      ctx.font = '16px sans-serif';
-      ctx.fillText(value, x + 18, y + 20);
-    }
-
-    function drawBoxes() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      left.forEach((val, idx) => {
-        const color = i > idx ? '#ccc' : '#add8e6';
-        drawBox(val, 50 + idx * 60, 30, color);
-      });
-
-      right.forEach((val, idx) => {
-        const color = j > idx ? '#ccc' : '#90ee90';
-        drawBox(val, 50 + idx * 60, 90, color);
-      });
-
-      merged.forEach((val, idx) => {
-        drawBox(val, 50 + idx * 60, 150, '#ffcccb');
-      });
-    }
-
-    function stepMerge() {
-      if (i < left.length && (j >= right.length || left[i] <= right[j])) {
-        merged.push(left[i]);
-        document.getElementById('explanation').innerText = `Step ${++step}: Take ${left[i]} from left`;
-        i++;
-      } else if (j < right.length) {
-        merged.push(right[j]);
-        document.getElementById('explanation').innerText = `Step ${++step}: Take ${right[j]} from right`;
-        j++;
-      } else {
-        document.getElementById('explanation').innerText = `Merge complete! Final array: [${merged.join(', ')}]`;
-      }
-      drawBoxes();
-    }
-
-    function submitArrays() {
-      const leftInput = document.getElementById('leftInput').value;
-      const rightInput = document.getElementById('rightInput').value;
-
-      left = leftInput.split(',').map(Number).filter(n => !isNaN(n));
-      right = rightInput.split(',').map(Number).filter(n => !isNaN(n));
-      merged = [];
-      i = 0;
-      j = 0;
-      step = 0;
-
-      document.getElementById('explanation').innerText = 'Arrays submitted. Click "Next Step" to begin merging.';
-      drawBoxes();
-    }
-
-    drawBoxes(); // Initial draw
-
-    
-  </script>
-
   <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
 
-    <footer>
+  <footer>
     &copy; Progressive Pull. All rights reserved.
   </footer>
 
