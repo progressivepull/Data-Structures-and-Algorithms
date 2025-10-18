@@ -1,3 +1,11 @@
     #main-content {
-      background-color: #a7ca91; /* A light yellow */
+      background-color: #a7ca91; 
+    }
+
+    #leftInput, #rightInput {
+      background-color: #f7f4a1; 
+    }
+
+    #submitArrays{
+        margin-top: 20px;
     }
