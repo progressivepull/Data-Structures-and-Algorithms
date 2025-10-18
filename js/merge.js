@@ -1,18 +1,6 @@
-   
-
-
-  <div class="input-section">
-    <label>Left Array: <input type="text" id="leftInput" placeholder="e.g. 1,3,5"></label>
-    <label>Right Array: <input type="text" id="rightInput" placeholder="e.g. 2,4,6"></label>
-    <button onclick="submitArrays()">Submit Arrays</button>
-  </div>
-
-  <button onclick="stepMerge()">Next Step</button>
-  <div id="explanation">Click "Next Step" to begin merging.</div>
-  <canvas id="mergeCanvas" width="700" height="250"></canvas>
-
-  <script>
-    const canvas = document.getElementById('mergeCanvas');
+$( document ).ready(function() {
+  
+     const canvas = document.getElementById('mergeCanvas');
     const ctx = canvas.getContext('2d');
 
     let left = [1, 3, 5];
@@ -48,7 +36,7 @@
       });
     }
 
-    function stepMerge() {
+    $("#stepMerge").click(function() {
       if (i < left.length && (j >= right.length || left[i] <= right[j])) {
         merged.push(left[i]);
         document.getElementById('explanation').innerText = `Step ${++step}: Take ${left[i]} from left`;
@@ -61,9 +49,9 @@
         document.getElementById('explanation').innerText = `Merge complete! Final array: [${merged.join(', ')}]`;
       }
       drawBoxes();
-    }
+    });
 
-    function submitArrays() {
+    $("#submitArrays").click(function() {
       const leftInput = document.getElementById('leftInput').value;
       const rightInput = document.getElementById('rightInput').value;
 
@@ -76,13 +64,10 @@
 
       document.getElementById('explanation').innerText = 'Arrays submitted. Click "Next Step" to begin merging.';
       drawBoxes();
-    }
+    });
+
 
     drawBoxes(); // Initial draw
 
-    
-  </script>
 
-  
-
-
+});
