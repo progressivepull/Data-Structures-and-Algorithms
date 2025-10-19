@@ -1,18 +1,26 @@
-    #main-content {
-      background-color: #a7ca91; 
-    }
+#main-content {
+  background-color: #a7ca91; 
+}
 
-    #analogy-title {
-      color: #3b4a1c; 
-      text-align: center;
-      padding-top: 40px;
-      padding-bottom: 60px;
-    }
+#analogy-title {
+  color: #3b4a1c; 
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
 
-    #leftInput, #rightInput {
-      background-color: #f7f4a1; 
-    }
+#leftInput, #rightInput {
+  background-color: #f7f4a1; 
+}
 
-    #submitArrays{
-        margin-top: 20px;
-    }
+#submitArrays{
+  margin-top: 20px;
+}
+
+footer{
+  background-color: #157152;
+}
+
+.official-link {
+  color:#1d094c ;
+}
