@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bubble Sort Visual Analogy</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/sorting/bubble.css">
+  <script src="../lib/jquery-3.7.1.min.js"></script>
+
+  <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+
+  <script src="../js/sorting/bubble.js"></script>
+  <style>
+
+  </style>
+</head>
+<body>
+ <div id="main-content">
+
+
+  <div class="container">
+
+    <h1 id="analogy-title">Bubble Sort Analogy: Step-by-Step</h1>
+
+    <h2>Initial Value in Bubble Sort Algorithm</h2>
+    <p>In the Bubble Sort algorithm, the initial values typically refer to the starting points for comparison and iteration through the array. The main variables include the <strong>array length</strong> (<code>n</code>) and the <strong>loop counters</strong> (<code>i</code> and <code>j</code>), which control the number of passes and element comparisons.</p>
+
+    <h2>Key Initial Values in Bubble Sort</h2>
+    <ul>
+        <li><strong>Array Length (<code>n</code>)</strong>: The total number of elements in the array to be sorted.</li>
+        <li><strong>Outer Loop Counter (<code>i</code>)</strong>: Starts at <code>0</code> and runs until <code>n - 1</code>, representing each pass through the array.</li>
+        <li><strong>Inner Loop Counter (<code>j</code>)</strong>: Starts at <code>0</code> for each pass and runs until <code>n - i - 1</code>, comparing adjacent elements.</li>
+    </ul>
+
+    <h2>Example Initialization</h2>
+    <p>For an array like <code>[5, 1, 4, 2, 8]</code>, the initial setup is:</p>
+    <pre><code>int n = 5;
+        for (int i = 0; i &lt; n - 1; i++) {
+            for (int j = 0; j &lt; n - i - 1; j++) {
+                if (arr[j] &gt; arr[j + 1]) {
+                    // swap arr[j] and arr[j + 1]
+            }
+        }
+    }</code></pre>
+
+    <p>In the <strong>first pass</strong> (<code>i = 0</code>):</p>
+    <ul>
+        <li>Comparisons: <code>(5,1)</code>, <code>(5,4)</code>, <code>(5,2)</code>, <code>(5,8)</code></li>
+        <li>Largest element (<code>8</code>) moves to the end.</li>
+    </ul>
+
+    <p>In the <strong>second pass</strong> (<code>i = 1</code>):</p>
+    <ul>
+        <li>Next largest element (<code>5</code>) moves to its correct position before <code>8</code>.</li>
+    </ul>
+
+    <h2>Why These Initial Values Matter</h2>
+    <ul>
+        <li>They control the number of comparisons and swaps per pass.</li>
+        <li>They ensure elements “bubble up” in correct order after each pass.</li>
+        <li>They maintain the algorithm’s time complexity of <strong>O(n²)</strong>.</li>
+    </ul>
+
+    <h2>Visualization of Passes</h2>
+    <pre><code>
+        Initial: [5, 3, 8, 4, 2]
+        Pass 1:  [3, 5, 4, 2, 8]
+        Pass 2:  [3, 4, 2, 5, 8]
+        Pass 3:  [3, 2, 4, 5, 8]
+        Pass 4:  [2, 3, 4, 5, 8]
+        Sorted:  [2, 3, 4, 5, 8]    
+    </code></pre>
+
+          <h2>References</h2>
+      <ul>
+        <li><a href="https://www.youtube.com/watch?v=xli_FI7CuzA">Bubble sort in 2 minutes - Michael Sambol - YouTube</a></li>
+      </ul>
+
+     <br><br><br><br>
+
+      <div class="visualization-section">
+
+            <input type="text" id="valueInput" placeholder="Enter values like 5,3,8,4,2">
+            <button id="setValues" class="btn btn-primary" >Set Values</button>
+            <button id="nextStep" class="btn btn-primary">Next Step</button>
+            <p id="explanation">Enter values and click "Set Values" to begin.</p>
+            <canvas id="sortCanvas" width="800" height="100"></canvas>
+
+      </div>
+
+
+      <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
+
+  </div>
+
+  <footer>
+    &copy; Progressive Pull. All rights reserved.
+  </footer>
+  </div>
+
+</body>
+</html>
