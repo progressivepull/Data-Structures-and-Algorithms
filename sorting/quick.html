@@ -25,14 +25,51 @@
 
             <h1 class="analogy-title" >Quick Sort : Step-by-Stepy</h1>
 
+            <h2>Initial Value in Quick Sort Algorithm</h2>
+            <p>In the Quick Sort Algorithm, the initial values typically refer to the indices that define the current subarray and the <strong>pivot element</strong>. These guide the recursive partitioning and sorting process.</p>
 
-            <label for="initialValues">Enter comma-separated values:</label>
-            <input type="text" id="initialValues" value="30,10,40,20,50" />
-            <button id="startSort" class="btn btn-primary" >Start Sort</button>
-            <button id="nextStep" class="btn btn-primary" >Next Step</button>
+            <h2>Key Initial Values in Quick Sort</h2>
+            <ul>
+              <li><strong>Low Index (<code>low</code>)</strong>: Starting index of the array or subarray, initially set to <code>0</code>.</li>
+              <li><strong>High Index (<code>high</code>)</strong>: Ending index of the array or subarray, initially set to <code>n - 1</code>.</li>
+              <li><strong>Pivot Element (<code>pivot</code>)</strong>: Typically chosen as the last element in the subarray, though other strategies exist.</li>
+            </ul>
 
-            <canvas class="canvas-area" width="600" height="150"></canvas>
-            <div id="explanation">Explanation will appear here...</div>
+            <h2>Example Initialization</h2>
+            <p>For an array like <code>[30, 10, 40, 20, 50]</code>, the initial call would be:</p>
+            <pre><code>quickSort(arr, 0, 4);</code></pre>
+            <p>This leads to:</p>
+            <ul>
+              <li><code>pivot = 50</code> (last element)</li>
+              <li>Array is partitioned around the pivot: elements less than pivot to the left, greater to the right</li>
+              <li>Recursive calls sort the left and right partitions</li>
+            </ul>
+
+            <h2>Why These Initial Values Matter</h2>
+            <ul>
+              <li>They define the boundaries for recursive partitioning.</li>
+              <li>They ensure elements are correctly placed relative to the pivot.</li>
+              <li>They help maintain the algorithm’s average time complexity of <strong>O(n log n)</strong>.</li>
+            </ul>
+
+            <h2>References</h2>
+            <ul>
+              <li><a href="https://www.youtube.com/watch?v=Hoixgm4-P4M">Quick sort in 4 minutes - Michael Sambol - YouTube</a></li>
+            </ul>
+
+            <br><br><br><br>
+
+            <div class="visualization-section">
+
+                <label for="initialValues">Enter comma-separated values:</label>
+                <input type="text" id="initialValues" value="30,10,40,20,50" />
+                <button id="startSort" class="btn btn-primary" >Start Sort</button>
+                <button id="nextStep" class="btn btn-primary" >Next Step</button>
+
+                <canvas class="canvas-area" width="600" height="150"></canvas>
+                <div id="explanation">Explanation will appear here...</div>
+
+            </div>
 
             <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
 
