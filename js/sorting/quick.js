@@ -33,8 +33,8 @@ $(document).ready(function() {
       });
 
       // Draw Current State
-      ctx.fillText('Current State', 10, 150);
-      const currentY = 180;
+      ctx.fillText('Current State', 10, 230);
+      const currentY = 260;
       currentArr.forEach((val, i) => {
         const x = i * 60 + 10;
         ctx.fillStyle = highlight[i] || '#87CEEB';
