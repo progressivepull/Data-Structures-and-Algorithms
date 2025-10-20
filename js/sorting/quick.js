@@ -28,7 +28,7 @@ $(document).ready(function() {
       });
 
       if (low !== undefined) drawArrow(low * 60 + 35, 90, 'Low');
-      if (high !== undefined) drawArrow(high * 60 + 35, 90, 'High');
+      if (high !== undefined) drawArrow(high * 60 + 35, 50, 'High');
       if (pivot !== undefined) drawArrow(pivot * 60 + 35, 165, 'Pivot');
     }
 
