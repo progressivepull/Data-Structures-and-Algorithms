@@ -1,0 +1,11 @@
+    canvas { 
+        border: 1px solid #ccc; 
+        margin-top: 10px; 
+    }
+    #controls { 
+        margin-top: 10px; 
+    }
+    #explanation { 
+        margin-top: 10px; 
+        font-family: sans-serif; 
+    }
