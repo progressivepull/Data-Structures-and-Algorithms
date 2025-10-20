@@ -1,11 +1,19 @@
-    canvas { 
-        border: 1px solid #ccc; 
-        margin-top: 10px; 
-    }
-    #controls { 
-        margin-top: 10px; 
-    }
-    #explanation { 
-        margin-top: 10px; 
-        font-family: sans-serif; 
-    }
+canvas { 
+    border: 1px solid #ccc; 
+    margin-top: 10px; 
+}
+#controls { 
+     margin-top: 10px; 
+}
+#explanation { 
+    margin-top: 10px; 
+    font-family: sans-serif; 
+}
+#setValues, #nextStep { 
+    margin: 5px; 
+    margin-top: 10px;
+}
+
+#main-content {
+  background-color: #cf628c; 
+}

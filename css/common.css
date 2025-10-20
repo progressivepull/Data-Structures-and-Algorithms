@@ -194,3 +194,18 @@ canvas { border: 1px solid #00000033; display: block; margin-top: 10px; }
   text-decoration: none;
   font-weight: bold;
 }
+
+.analogy-title {
+  color: #3b4a1c; 
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+
+.official-link {
+  color:#1d094c ;
+}
+
+.canvas-area {
+    background-color: white;
+}
