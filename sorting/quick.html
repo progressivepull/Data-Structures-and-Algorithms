@@ -36,11 +36,11 @@
             </ul>
 
             <h2>Example Initialization</h2>
-            <p>For an array like <code>[30, 10, 40, 20, 50]</code>, the initial call would be:</p>
-            <pre><code>quickSort(arr, 0, 4);</code></pre>
+            <p>For an array like <code>[7,2,1,8,6,3,5,4]</code>, the initial call would be:</p>
+            <pre><code>quickSort(arr, 0, 7);</code></pre>
             <p>This leads to:</p>
             <ul>
-              <li><code>pivot = 50</code> (last element)</li>
+              <li><code>pivot = 4</code> (last element)</li>
               <li>Array is partitioned around the pivot: elements less than pivot to the left, greater to the right</li>
               <li>Recursive calls sort the left and right partitions</li>
             </ul>
@@ -62,11 +62,11 @@
             <div class="visualization-section">
 
                 <label for="initialValues">Enter comma-separated values:</label>
-                <input type="text" id="initialValues" value="30,10,40,20,50" />
+                <input type="text" id="initialValues" value="7,2,1,8,6,3,5,4" />
                 <button id="startSort" class="btn btn-primary" >Start Sort</button>
                 <button id="nextStep" class="btn btn-primary" >Next Step</button>
 
-                <canvas id="quickSort" class="canvas-area" width="600" height="250"></canvas>
+                <canvas id="quickSort" class="canvas-area" width="600" height="400"></canvas>
                 <div id="explanation">Explanation will appear here...</div>
 
             </div>

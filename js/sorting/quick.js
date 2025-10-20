@@ -4,6 +4,7 @@ $(document).ready(function() {
     let values = [];
     let steps = [];
     let currentStep = 0;
+    let previousValues = [];
 
     function drawArrow(x, y, label) {
       ctx.fillStyle = 'black';
@@ -16,20 +17,36 @@ $(document).ready(function() {
       ctx.fillText(label, x - 15, y - 25);
     }
 
-    function drawBoxes(arr, { low, high, pivot, highlight = {} }) {
+    function drawBoxes(currentArr, previousArr = [], { low, high, pivot, highlight = {} }) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      arr.forEach((val, i) => {
+
+      // Draw Previous State
+      ctx.fillStyle = '#000';
+      ctx.fillText('Previous State', 10, 20);
+      const prevY = 50;
+      previousArr.forEach((val, i) => {
         const x = i * 60 + 10;
-        const y = 100;
-        ctx.fillStyle = highlight[i] || '#87CEEB';
-        ctx.fillRect(x, y, 50, 50);
+        ctx.fillStyle = '#D3D3D3'; // Light gray for previous state
+        ctx.fillRect(x, prevY, 50, 50);
         ctx.fillStyle = '#000';
-        ctx.fillText(val, x + 20, y + 30);
+        ctx.fillText(val, x + 20, prevY + 30);
       });
 
-      if (low !== undefined) drawArrow(low * 60 + 35, 90, 'Low');
-      if (high !== undefined) drawArrow(high * 60 + 35, 50, 'High');
-      if (pivot !== undefined) drawArrow(pivot * 60 + 35, 205, 'Pivot');
+      // Draw Current State
+      ctx.fillText('Current State', 10, 150);
+      const currentY = 180;
+      currentArr.forEach((val, i) => {
+        const x = i * 60 + 10;
+        ctx.fillStyle = highlight[i] || '#87CEEB';
+        ctx.fillRect(x, currentY, 50, 50);
+        ctx.fillStyle = '#000';
+        ctx.fillText(val, x + 20, currentY + 30);
+      });
+
+      // Adjust arrow positions to point to the current state
+      if (low !== undefined) drawArrow(low * 60 + 35, currentY - 10, 'Low');
+      if (high !== undefined) drawArrow(high * 60 + 35, currentY - 50, 'High');
+      if (pivot !== undefined) drawArrow(pivot * 60 + 35, currentY + 65, 'Pivot');
     }
 
     function quickSortSteps(arr, left = 0, right = arr.length - 1) {
@@ -90,22 +107,22 @@ $(document).ready(function() {
       values = input.split(',').map(Number);
       steps = [];
       currentStep = 0;
+      previousValues = [];
       quickSortSteps([...values]);
-      drawBoxes(values, {});
+      drawBoxes(values, [], {});
       document.getElementById('explanation').innerText = 'Click "Next Step" to begin.';
     });
 
     $("#nextStep").click(function() {
-    
       if (currentStep < steps.length) {
+        previousValues = (currentStep === 0) ? [...values] : [...steps[currentStep - 1].arr];
         const step = steps[currentStep];
-        drawBoxes(step.arr, step);
+        drawBoxes(step.arr, previousValues, step);
         document.getElementById('explanation').innerText = step.explanation;
         currentStep++;
       } else {
         document.getElementById('explanation').innerText = 'Sorting complete!';
       }
-
     });
 
 
