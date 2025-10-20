@@ -1,6 +1,6 @@
 $( document ).ready(function() {
   
-     const canvas = document.getElementById('mergeCanvas');
+     const canvas = document.getElementById('mergeSort');
     const ctx = canvas.getContext('2d');
 
     let left = [1, 3, 5];

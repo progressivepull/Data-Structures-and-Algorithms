@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-    const canvas = document.getElementById('sortCanvas');
+    const canvas = document.getElementById('bubbleSort');
     const ctx = canvas.getContext('2d');
     const explanation = document.getElementById('explanation');
     const input = document.getElementById('valueInput');

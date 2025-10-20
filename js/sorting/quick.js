@@ -1,5 +1,5 @@
 $(document).ready(function() {
-        const canvas = document.getElementById('sortCanvas');
+        const canvas = document.getElementById('quickSort');
     const ctx = canvas.getContext('2d');
     let values = [];
     let steps = [];
