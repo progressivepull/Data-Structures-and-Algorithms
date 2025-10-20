@@ -46,7 +46,7 @@ $(document).ready(function() {
       // Adjust arrow positions to point to the current state
       if (low !== undefined) drawArrow(low * 60 + 35, currentY - 10, 'Low');
       if (high !== undefined) drawArrow(high * 60 + 35, currentY - 50, 'High');
-      if (pivot !== undefined) drawArrow(pivot * 60 + 35, currentY + 65, 'Pivot');
+      if (pivot !== undefined) drawArrow(pivot * 60 + 35, currentY + 105, 'Pivot');
     }
 
     function quickSortSteps(arr, left = 0, right = arr.length - 1) {
