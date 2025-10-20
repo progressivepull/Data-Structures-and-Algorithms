@@ -9,10 +9,10 @@ $( document ).ready(function() {
     let i = 0, j = 0;
     let sortingDone = false;
 
-    function drawBoxes() {
+    function drawBoxes(comparing = []) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       values.forEach((val, index) => {
-        ctx.fillStyle = 'lightblue';
+        ctx.fillStyle = comparing.includes(index) ? 'red' : 'lightblue';
         ctx.fillRect(50 + index * 100, 30, 50, 50);
         ctx.fillStyle = 'black';
         ctx.font = '20px Arial';
@@ -41,24 +41,32 @@ $( document ).ready(function() {
       if (i < values.length) {
         if (j < values.length - i - 1) {
           explanation.textContent = `Comparing ${values[j]} and ${values[j + 1]}`;
+          drawBoxes([j, j + 1]); // Highlight comparing boxes
           if (values[j] > values[j + 1]) {
             explanation.textContent += ` → Swap needed!`;
-            [values[j], values[j + 1]] = [values[j + 1], values[j]];
+            setTimeout(() => {
+              [values[j], values[j + 1]] = [values[j + 1], values[j]];
+              drawBoxes();
+              j++;
+            }, 500);
           } else {
             explanation.textContent += ` → No swap.`;
+            j++;
+            setTimeout(() => {
+              drawBoxes();
+            }, 500);
           }
-          j++;
         } else {
           j = 0;
           i++;
           explanation.textContent = `Pass ${i} complete.`;
+          drawBoxes();
         }
       } else {
         sortingDone = true;
         explanation.textContent = "Sorting complete!";
+        drawBoxes();
       }
-
-      drawBoxes();
      });
 
     // Optional: initialize with default values
