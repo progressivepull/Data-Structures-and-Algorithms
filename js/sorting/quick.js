@@ -33,7 +33,7 @@ $(document).ready(function() {
       });
 
       // Draw Current State
-      ctx.fillText('Current State', 10, 230);
+      ctx.fillText('Current State', 10, 140);
       const currentY = 260;
       currentArr.forEach((val, i) => {
         const x = i * 60 + 10;
