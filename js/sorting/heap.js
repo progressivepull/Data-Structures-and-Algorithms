@@ -1,5 +1,51 @@
 $( document ).ready(function() {
 
+    const treeCanvas = document.getElementById('treeCanvas');
+    const treecCtx = treeCanvas.getContext('2d');
+    const nodeWidth = 50;
+    const nodeHeight = 40;
+    const levelHeight = 80;
+
+    function drawNode(x, y, value) {
+      treecCtx.fillStyle = '#fff';
+      treecCtx.fillRect(x - nodeWidth / 2, y - nodeHeight / 2, nodeWidth, nodeHeight);
+      treecCtx.strokeRect(x - nodeWidth / 2, y - nodeHeight / 2, nodeWidth, nodeHeight);
+      treecCtx.fillStyle = '#000';
+      treecCtx.font = '20px Arial';
+      treecCtx.textAlign = 'center';
+      treecCtx.textBaseline = 'middle';
+      treecCtx.fillText(value, x, y);
+    }
+
+    function drawLine(x1, y1, x2, y2) {
+      treecCtx.beginPath();
+      treecCtx.moveTo(x1, y1);
+      treecCtx.lineTo(x2, y2);
+      treecCtx.stroke();
+    }
+
+    function drawTree(array) {
+      treecCtx.clearRect(0, 0, treeCanvas.width, treeCanvas.height);
+      const positions = [];
+
+      for (let i = 0; i < array.length; i++) {
+        const level = Math.floor(Math.log2(i + 1));
+        const maxNodes = 2 ** level;
+        const indexInLevel = i - (maxNodes - 1);
+        const spacing = treeCanvas.width / (maxNodes + 1);
+        const x = spacing * (indexInLevel + 1);
+        const y = levelHeight * (level + 1);
+        positions[i] = { x, y };
+
+        drawNode(x, y, array[i]);
+
+        const parentIndex = Math.floor((i - 1) / 2);
+        if (i > 0) {
+          drawLine(positions[parentIndex].x, positions[parentIndex].y + nodeHeight / 2, x, y - nodeHeight / 2);
+        }
+      }
+    }
+
 const canvas = document.getElementById('heapSort');
 const ctx = canvas.getContext('2d');
 const explanation = document.getElementById('explanation');
@@ -113,9 +159,11 @@ nextBtn.addEventListener('click', () => {
     const step = steps[currentStep];
     drawArray(step.array, step.highlight);
     explanation.innerHTML = step.explanation;
+    drawTree(step.array); // <-- Update tree with current array state
   } else {
     nextBtn.disabled = true;
   }
+
 });
 
 // Helper for rounded rectangles
