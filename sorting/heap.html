@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
 
     <script src="../js/sorting/heap.js"></script>
-
+    
     <!-- Basic favicon link -->
     <link rel="icon" href="./../favicon.ico" type="image/x-icon">
 
@@ -25,16 +25,25 @@
             <h1 class="analogy-title">Heap Analogy: Step-by-Step</h1>
 
 
+            <h2>References</h2>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=G2wSztpl1o8">Sorting Algorithms - Heap Sort Explained with Animation | Step-by-Step for Interviews & Beginners - PiStarCube - YouTube</a></li>
+            </ul>
+
+                <br><br><br><br>
+
                  <div class="visualization-section">
 
                     <div id="controls">
                     <label for="inputValues">Enter values (comma separated): </label>
-                    <input id="inputValues" type="text" value="5, 3, 8, 4, 1, 2, 7, 6">
+                    <input id="inputValues" type="text" value="8,6,7,4,5,3,2,1">
                     <button id="startBtn" class="btn btn-primary" >Start Visualization</button>
                     <button id="nextBtn" class="btn btn-primary" disabled>Next Step ▶</button>
                     </div>
 
                     <canvas id="heapSort" width="800" height="400"></canvas>
+
+                    <canvas id="treeCanvas" width="800" height="600"></canvas>
 
                     <div id="explanation" style="
                                                     font-weight: bold;

@@ -104,6 +104,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
   drawArray(steps[currentStep].array, steps[currentStep].highlight);
   explanation.innerHTML = steps[currentStep].explanation;
   nextBtn.disabled = false;
+  drawTree(values);
 });
 
 nextBtn.addEventListener('click', () => {
