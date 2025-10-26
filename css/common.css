@@ -130,12 +130,7 @@ canvas { border: 1px solid #00000033; display: block; margin-top: 10px; }
   outline-offset: 3px;
 }
 
-/* Primary and secondary variants */
-.btn-primary {
-  background: linear-gradient(90deg, var(--accent), #7fffd4);
-  color: #052020;
-  border: 1px solid rgba(0,255,255,0.9);
-}
+
 
 .btn-ghost {
   background: transparent;

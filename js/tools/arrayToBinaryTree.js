@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-        const canvas = document.getElementById('treeCanvas');
+    const canvas = document.getElementById('treeCanvas');
     const ctx = canvas.getContext('2d');
     const nodeWidth = 50;
     const nodeHeight = 40;
