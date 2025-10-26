@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Binary Heap Child Calculator</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/tools/childCalculator.css">
+  <script src="../lib/jquery-3.7.1.min.js"></script>
+
+  <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+
+  <script src="../js/tools/childCalculator.js"></script>
+    
+  <!-- Basic favicon link -->
+  <link rel="icon" href="./../favicon.ico" type="image/x-icon">
+
+  <!-- Optional: for older browsers -->
+  <link rel="shortcut icon" href="./../favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+        <div id="main-content">
+        <div class="container">
+
+                <h1 class="analogy-title" >Binary Heap Child Index Calculator</h1>
+                <p>Enter the index of a parent node to find its left and right child indices in a binary heap array.</p>
+
+                  <h1 class="analogy-title" >Understanding Binary Heap Child Index Calculation</h1>
+
+                  <p>In a binary heap stored as an array, each node at index <code>i</code> has:</p>
+                  <ul>
+                  <li class="formula">Left child index: <code>2 * i + 1</code></li>
+                  <li class="formula">Right child index: <code>2 * i + 2</code></li>
+                  </ul>
+
+                  <h2>Why These Formulas Work</h2>
+                  <p>
+                  Binary heaps are complete binary trees, and when stored in arrays, their structure follows a predictable pattern:
+                  </p>
+                  <ul>
+                  <li>The root node is at index <code>0</code>.</li>
+                  <li>Each level fills left to right, so children of node <code>i</code> are placed immediately after all previous nodes.</li>
+                  <li>Thus, the left child is at <code>2 * i + 1</code> and the right child is at <code>2 * i + 2</code>.</li>
+                  </ul>
+
+                  <h2>Example</h2>
+                  <p>Given a node at index <code>3</code>:</p>
+                  <ul>
+                  <li>Left child index = <code>2 * 3 + 1 = 7</code></li>
+                  <li>Right child index = <code>2 * 3 + 2 = 8</code></li>
+                  </ul>
+
+                  <p>This indexing makes traversal and heap operations efficient without needing pointers or tree nodes.
+
+              <div class="visualization-section">
+                    <label for="parentIndex">Parent Index:</label>
+                    <input style="margin-top: 10px;" type="number" id="parentIndex" min="0" />
+                    <button style="margin-top: 10px;" id="calculateChildren" class="btn btn-primary" >Calculate</button>
+
+                    <br><br>
+
+                    <div id="output"></div>
+              </div>
+              <br><br><br><br>
+              <br><br><br><br>
+
+              <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
+        </div>
+              <footer>
+                  &copy; Progressive Pull. All rights reserved.
+              </footer>
+        </div> 
+
+</body>
+</html>
