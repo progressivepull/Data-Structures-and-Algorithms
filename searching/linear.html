@@ -23,6 +23,54 @@
 
             <h1 class="analogy-title">Linear Search Analogy: Step-by-Step</h1>
 
+            <p>Linear search is a simple search algorithm that systematically checks each element in a list or array one by one until it finds the target value or reaches the end of the list. It is also known as a sequential search.</p>
+
+                <h2>How It Works</h2>
+
+                <p>The process is straightforward:</p>
+                <ol>
+                    <li><strong>Start at the beginning:</strong> The algorithm begins by looking at the first element of the list.</li>
+                    <li><strong>Compare:</strong> It compares the current element with the value you are searching for (the "target" or "key").</li>
+                    <li><strong>Found or Not Found:</strong>
+                        <ul>
+                            <li>If the current element matches the target, the search is successful, and the algorithm returns the location (index) of that element.</li>
+                            <li>If they do not match, the algorithm moves to the next element in the list.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Repeat:</strong> Steps 2 and 3 are repeated until the target is found or there are no more elements left to check.</li>
+                    <li><strong>End:</strong> If the entire list is traversed without finding the target, the search ends unsuccessfully, and typically a "not found" message or a null/sentinel value is returned.</li>
+                </ol>
+
+                <h2>Example</h2>
+
+                <p>Consider an array of numbers: </p>
+                <div class="example-array">[10, 5, 2, 8, 3]</div>
+
+                <p>If you want to search for the target value <code>8</code>:</p>
+                <ul>
+                    <li>Compare <code>10</code> with <code>8</code>. No match.</li>
+                    <li>Compare <code>5</code> with <code>8</code>. No match.</li>
+                    <li>Compare <code>2</code> with <code>8</code>. No match.</li>
+                    <li>Compare <code>8</code> with <code>8</code>. Match found! The search stops and returns the index (in this case, index 3).</li>
+                </ul>
+
+                <h2>Characteristics</h2>
+
+                <ul>
+                    <li><strong>Simplicity:</strong> It is one of the easiest algorithms to understand and implement.</li>
+                    <li><strong>No Sorting Required:</strong> Unlike some more advanced algorithms (like binary search), linear search works on unsorted lists.</li>
+                    <li><strong>Time Complexity:</strong> Its performance is directly proportional to the size of the list.
+                        <ul>
+                            <li>In the <strong>best-case</strong> scenario, the target is the first element, so only one comparison is needed.</li>
+                            <li>In the <strong>worst-case</strong> scenario, the target is the last element or not in the list at all, requiring a comparison for every single element.</li>
+                            <li>The <strong>average</strong> and worst-case time complexity is O(n), meaning that as the list size (n) increases, the time taken grows linearly.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <p>Due to its O(n) time complexity, linear search is generally inefficient for very large lists and is often outperformed by other algorithms for sorted data.</p>
+
+
             <h2>References</h2>
             <ul>
                 <li><a href="https://www.youtube.com/watch?v=246V51AWwZM">Learn Linear Search in 3 minutes - Bro Code - YouTube</a></li>
