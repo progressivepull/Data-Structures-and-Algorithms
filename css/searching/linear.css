@@ -1,0 +1,21 @@
+#searchCanvas {
+    border: 1px solid black;
+    background: white;
+    margin-top: 20px;
+}
+#valueInput{
+    margin-bottom: 10px;
+}
+#setValues {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+#main-content {
+  background-color: #86e07d; 
+}
+
+footer{
+  background-color: #36c431;
+}
