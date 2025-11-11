@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Binary Search Analogy — Canvas Walkthrough</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --accent: #22d3ee;
+      --accent2: #a78bfa;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --good: #10b981;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --box: #1f2937;
+      --box-border: #334155;
+      --box-focus: #0ea5e9;
+      --range-mask: rgba(255,255,255,0.06);
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(120deg, #0b1023, #0f172a 60%, #121a2e);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+    .app {
+      width: min(1000px, 92vw);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+    header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: linear-gradient(180deg, rgba(34,211,238,0.08), rgba(167,139,250,0.08));
+    }
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    header h1 span.logo {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), transparent 60%), radial-gradient(circle at 70% 70%, var(--accent2), transparent 60%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 10px 20px rgba(34,211,238,0.25), inset 0 0 12px rgba(167,139,250,0.35);
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .controls label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .controls input[type="number"] {
+      background: #0b1224;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 8px 10px;
+      width: 110px;
+    }
+    .controls input[type="range"] {
+      width: 140px;
+      accent-color: var(--accent);
+    }
+    .controls button {
+      background: linear-gradient(180deg, #0ea5e9, #0284c7);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(14,165,233,0.35);
+    }
+    .controls button.secondary {
+      background: linear-gradient(180deg, #6b7280, #4b5563);
+      box-shadow: 0 6px 14px rgba(107,114,128,0.25);
+    }
+    .controls button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .canvas-wrap {
+      position: relative;
+      padding: 16px;
+      background: radial-gradient(1200px 400px at 50% 0%, rgba(34,211,238,0.08), transparent 50%), radial-gradient(1200px 400px at 50% 100%, rgba(167,139,250,0.08), transparent 50%);
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(180deg, #0a0f1f, #0f172a);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+    }
+    .explain {
+      padding: 14px 16px 18px;
+      font-size: 14px;
+      color: #dbeafe;
+    }
+    .explain b {
+      color: #93c5fd;
+    }
+    .legend {
+      display: flex;
+      gap: 14px;
+      padding: 10px 16px 20px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1><span class="logo"></span> Binary search analogy: books on a shelf</h1>
+      <div class="controls">
+        <label for="target">Target value</label>
+        <input id="target" type="number" placeholder="e.g., 42" />
+        <label for="n">Boxes</label>
+        <input id="n" type="range" min="8" max="36" value="20" />
+        <button id="reset" class="secondary">Reset</button>
+        <button id="next">Next step</button>
+      </div>
+    </header>
+
+    <div class="canvas-wrap">
+      <canvas id="board" width="1200" height="220" aria-label="Binary search canvas"></canvas>
+    </div>
+
+    <div class="legend">
+      <div class="chip"><span class="swatch" style="background:#1f2937"></span> In-range boxes</div>
+      <div class="chip"><span class="swatch" style="background:#0ea5e9"></span> Midpoint (current guess)</div>
+      <div class="chip"><span class="swatch" style="background:#10b981"></span> Found target</div>
+      <div class="chip"><span class="swatch" style="background:#ef4444"></span> Out-of-range (eliminated)</div>
+    </div>
+
+    <div class="explain" id="explain">
+      Enter a target value and click “Next step” to begin. The shelf is sorted left-to-right.
+    </div>
+  </div>
+
+  <script>
+    // ---- Configuration and state ----
+    const canvas = document.getElementById('board');
+    const ctx = canvas.getContext('2d');
+    const explain = document.getElementById('explain');
+    const targetInput = document.getElementById('target');
+    const nRange = document.getElementById('n');
+    const nextBtn = document.getElementById('next');
+    const resetBtn = document.getElementById('reset');
+
+    let arr = [];
+    let lo = 0, hi = 0, mid = 0;
+    let target = null;
+    let step = 0;
+    let foundIndex = -1;
+    let started = false;
+
+    // Layout for boxes
+    function layoutMetrics(count) {
+      const padding = 24;
+      const innerW = canvas.width - padding * 2;
+      const boxW = Math.max(24, Math.floor(innerW / count) - 6);
+      const gap = Math.max(4, Math.floor((innerW - boxW * count) / Math.max(1, count - 1)));
+      const y = 70;
+      return { padding, boxW, gap, y };
+    }
+
+    // Generate a sorted array of distinct values for visualization
+    function buildArray(n) {
+      const base = 5;
+      const step = 4;
+      return Array.from({ length: n }, (_, i) => base + i * step);
+    }
+
+    // ---- Drawing ----
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Background flourish
+      const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      grad.addColorStop(0, '#0b1224');
+      grad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const n = arr.length;
+      const { padding, boxW, gap, y } = layoutMetrics(n);
+      const x0 = padding;
+
+      // Range mask (out-of-range becomes dimmed)
+      for (let i = 0; i < n; i++) {
+        const x = x0 + i * (boxW + gap);
+        const inRange = i >= lo && i <= hi;
+        const isMid = i === mid;
+        const isFound = i === foundIndex;
+
+        // Box
+        ctx.fillStyle = inRange ? '#1f2937' : '#1a2234';
+        ctx.strokeStyle = inRange ? '#334155' : '#222a3b';
+        ctx.lineWidth = 1.5;
+        roundRect(ctx, x, y, boxW, 60, 8, true, true);
+
+        // Mid highlight
+        if (isMid && started && foundIndex === -1) {
+          ctx.save();
+          ctx.shadowColor = '#0ea5e9';
+          ctx.shadowBlur = 18;
+          ctx.strokeStyle = '#0ea5e9';
+          ctx.lineWidth = 3;
+          roundRect(ctx, x - 2, y - 2, boxW + 4, 64, 10, false, true);
+          ctx.restore();
+        }
+
+        // Found highlight
+        if (isFound) {
+          ctx.save();
+          ctx.shadowColor = '#10b981';
+          ctx.shadowBlur = 20;
+          ctx.fillStyle = '#10b981';
+          roundRect(ctx, x, y + 62, boxW, 6, 2, true, false);
+          ctx.restore();
+        }
+
+        // Value text
+        ctx.fillStyle = isFound ? '#d1fae5' : inRange ? '#e5e7eb' : '#9ca3af';
+        ctx.font = '600 14px system-ui';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(arr[i]), x + boxW / 2, y + 30);
+      }
+
+      // Range brackets and labels
+      drawRangeBrackets(n, x0, y, boxW, gap);
+
+      // Axis label
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '600 12px system-ui';
+      ctx.textAlign = 'center';
+      ctx.fillText('Sorted shelf (left → right)', canvas.width / 2, 24);
+    }
+
+    function drawRangeBrackets(n, x0, y, boxW, gap) {
+      const loX = x0 + lo * (boxW + gap);
+      const hiX = x0 + hi * (boxW + gap) + boxW;
+      const midX = x0 + mid * (boxW + gap) + boxW / 2;
+
+      // In-range overlay background
+      ctx.save();
+      ctx.fillStyle = 'rgba(255,255,255,0.04)';
+      ctx.fillRect(loX, y - 14, hiX - loX, 14);
+      ctx.restore();
+
+      // Brackets
+      ctx.strokeStyle = '#93c5fd';
+      ctx.lineWidth = 2;
+      bracket(ctx, loX, y - 16, false);
+      bracket(ctx, hiX, y - 16, true);
+
+      // Mid marker
+      ctx.strokeStyle = '#0ea5e9';
+      ctx.beginPath();
+      ctx.moveTo(midX, y - 22);
+      ctx.lineTo(midX, y - 6);
+      ctx.stroke();
+
+      // Labels
+      ctx.fillStyle = '#93c5fd';
+      ctx.font = '600 12px system-ui';
+      ctx.textAlign = 'left';
+      ctx.fillText(`lo = ${lo}`, loX + 4, y - 24);
+      ctx.textAlign = 'right';
+      ctx.fillText(`hi = ${hi}`, hiX - 4, y - 24);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#0ea5e9';
+      ctx.fillText(`mid = ${mid}`, midX, y - 28);
+    }
+
+    function roundRect(ctx, x, y, w, h, r, fill, stroke) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+      if (fill) ctx.fill();
+      if (stroke) ctx.stroke();
+    }
+
+    function bracket(ctx, x, y, right = false) {
+      ctx.beginPath();
+      if (!right) {
+        ctx.moveTo(x, y);
+        ctx.lineTo(x, y + 10);
+        ctx.lineTo(x + 8, y + 10);
+      } else {
+        ctx.moveTo(x, y);
+        ctx.lineTo(x, y + 10);
+        ctx.lineTo(x - 8, y + 10);
+      }
+      ctx.stroke();
+    }
+
+    // ---- Explanation text ----
+    function setExplain(text, tone = 'neutral') {
+      let color = '#dbeafe';
+      if (tone === 'ok') color = '#a7f3d0';
+      if (tone === 'bad') color = '#fecaca';
+      if (tone === 'warn') color = '#fde68a';
+      explain.style.color = color;
+      explain.innerHTML = text;
+    }
+
+    function introText() {
+      return `We’re finding a book on a neatly ordered shelf. Each box is a book’s number. 
+      Enter a <b>Target value</b>, then click <b>Next step</b>. We’ll only open the middle book each time and narrow the shelf.`;
+    }
+
+    function stepText() {
+      if (!started) return introText();
+
+      const midVal = arr[mid];
+      const loVal = arr[lo], hiVal = arr[hi];
+
+      if (foundIndex !== -1) {
+        return `Found it! The middle book is <b>${midVal}</b>, which matches the target <b>${target}</b>. 
+        We stop here because opening more books would be unnecessary.`;
+      }
+
+      if (lo > hi) {
+        return `No match. The search window closed (<b>lo</b> passed <b>hi</b>). 
+        That means the target isn’t on this shelf.`;
+      }
+
+      if (targetInput.value === '') {
+        return `Enter a target value to start. The shelf is sorted, so the middle check tells us which half to ignore.`;
+      }
+
+      if (midVal === target) {
+        return `Check the middle: book <b>${mid}</b> holds <b>${midVal}</b>. That equals the target <b>${target}</b> — success.`;
+      } else if (target < midVal) {
+        return `Check the middle: book <b>${mid}</b> holds <b>${midVal}</b>. The target <b>${target}</b> is smaller, 
+        so we eliminate the <b>right half</b> and keep the left.`;
+      } else {
+        return `Check the middle: book <b>${mid}</b> holds <b>${midVal}</b>. The target <b>${target}</b> is larger, 
+        so we eliminate the <b>left half</b> and keep the right.`;
+      }
+    }
+
+    // ---- Binary search stepping ----
+    function resetState() {
+      const n = parseInt(nRange.value, 10);
+      arr = buildArray(n);
+      lo = 0;
+      hi = n - 1;
+      mid = Math.floor((lo + hi) / 2);
+      foundIndex = -1;
+      step = 0;
+      started = false;
+
+      target = parseInt(targetInput.value, 10);
+      draw();
+      setExplain(introText(), 'neutral');
+      nextBtn.disabled = false;
+    }
+
+    function nextStep() {
+      if (targetInput.value === '') {
+        setExplain(`Please enter a target value first.`, 'warn');
+        return;
+      }
+
+      if (!started) {
+        started = true;
+        target = parseInt(targetInput.value, 10);
+        mid = Math.floor((lo + hi) / 2);
+        setExplain(stepText(), 'neutral');
+        draw();
+        return;
+      }
+
+      if (foundIndex !== -1 || lo > hi) {
+        nextBtn.disabled = true;
+        setExplain(stepText(), foundIndex !== -1 ? 'ok' : 'bad');
+        return;
+      }
+
+      // Compare at mid
+      const midVal = arr[mid];
+      if (midVal === target) {
+        foundIndex = mid;
+        setExplain(stepText(), 'ok');
+        draw();
+        nextBtn.disabled = true;
+        return;
+      }
+
+      // Narrow range
+      if (target < midVal) {
+        hi = mid - 1;
+      } else {
+        lo = mid + 1;
+      }
+      mid = Math.floor((lo + hi) / 2);
+
+      // If search closes without finding
+      if (lo > hi) {
+        setExplain(stepText(), 'bad');
+        draw();
+        nextBtn.disabled = true;
+        return;
+      }
+
+      step++;
+      setExplain(stepText(), 'neutral');
+      draw();
+    }
+
+    // ---- Events ----
+    resetBtn.addEventListener('click', resetState);
+    nextBtn.addEventListener('click', nextStep);
+    nRange.addEventListener('input', () => {
+      resetState();
+    });
+    targetInput.addEventListener('change', () => {
+      resetState();
+    });
+
+    // Initialize
+    resetState();
+
+    // ---- Optional: keyboard shortcut ----
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') nextStep();
+      if (e.key.toLowerCase() === 'r') resetState();
+    });
+  </script>
+</body>
+</html>
