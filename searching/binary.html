@@ -274,7 +274,6 @@
       ctx.fillStyle = '#9ca3af';
       ctx.font = '600 12px system-ui';
       ctx.textAlign = 'center';
-      ctx.fillText('Sorted shelf (left → right)', canvas.width / 2, 24);
     }
 
     function drawRangeBrackets(n, x0, y, boxW, gap) {
@@ -305,13 +304,13 @@
       ctx.fillStyle = '#93c5fd';
       ctx.font = '600 12px system-ui';
       ctx.textAlign = 'left';
-      ctx.fillText(`lo = ${lo}`, loX + 4, y - 24);
+      ctx.fillText(`low = ${lo}`, loX + 4, y - 24);
       ctx.textAlign = 'right';
-      ctx.fillText(`hi = ${hi}`, hiX - 4, y - 24);
+      ctx.fillText(`high = ${hi}`, hiX - 4, y - 52);
 
       ctx.textAlign = 'center';
       ctx.fillStyle = '#0ea5e9';
-      ctx.fillText(`mid = ${mid}`, midX, y - 28);
+      ctx.fillText(`middle = ${mid}`, midX, y - 38);
     }
 
     function roundRect(ctx, x, y, w, h, r, fill, stroke) {
