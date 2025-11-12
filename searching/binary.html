@@ -24,17 +24,16 @@
 
 
                     <div class="app">
-                        <header>
-                        <p><span class="logo"></span> Binary search analogy: books on a shelf</p>
+                        <div class="header-binary">
                         <div class="controls">
                             <label for="target">Target value</label>
                             <input id="target" type="number" placeholder="e.g., 42" />
                             <label for="n">Boxes</label>
                             <input id="n" type="range" min="8" max="36" value="20" />
-                            <button id="reset" class="secondary">Reset</button>
-                            <button id="next">Next step</button>
+                            <button id="reset" class="btn btn-primary" >Reset</button>
+                            <button id="next" class="btn btn-primary" >Next step</button>
                         </div>
-                        </header>
+                      </div>
 
                         <div class="canvas-wrap">
                         <canvas id="board" width="1200" height="220" aria-label="Binary search canvas"></canvas>
@@ -47,9 +46,12 @@
                         <div class="chip"><span class="swatch" style="background:#ef4444"></span> Out-of-range (eliminated)</div>
                         </div>
 
-                        <div class="explain" id="explain">
-                        Enter a target value and click “Next step” to begin. The shelf is sorted left-to-right.
+                        <div class="explain-area">
+                            <div class="explain" id="explain">
+                            Enter a target value and click “Next step” to begin. The shelf is sorted left-to-right.
+                            </div>
                         </div>
+
                     </div>
 
                 
