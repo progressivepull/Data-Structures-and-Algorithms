@@ -17,35 +17,49 @@
   <link rel="icon" href="./../favicon.ico" type="image/x-icon">
   
 </head>
-<body>
-  <div class="app">
-    <header>
-      <p><span class="logo"></span> Binary search analogy: books on a shelf</p>
-      <div class="controls">
-        <label for="target">Target value</label>
-        <input id="target" type="number" placeholder="e.g., 42" />
-        <label for="n">Boxes</label>
-        <input id="n" type="range" min="8" max="36" value="20" />
-        <button id="reset" class="secondary">Reset</button>
-        <button id="next">Next step</button>
-      </div>
-    </header>
+<body> 
 
-    <div class="canvas-wrap">
-      <canvas id="board" width="1200" height="220" aria-label="Binary search canvas"></canvas>
-    </div>
+        <div id="main-content">
+            <div class="container">
 
-    <div class="legend">
-      <div class="chip"><span class="swatch" style="background:#1f2937"></span> In-range boxes</div>
-      <div class="chip"><span class="swatch" style="background:#0ea5e9"></span> Midpoint (current guess)</div>
-      <div class="chip"><span class="swatch" style="background:#10b981"></span> Found target</div>
-      <div class="chip"><span class="swatch" style="background:#ef4444"></span> Out-of-range (eliminated)</div>
-    </div>
 
-    <div class="explain" id="explain">
-      Enter a target value and click “Next step” to begin. The shelf is sorted left-to-right.
-    </div>
+                    <div class="app">
+                        <header>
+                        <p><span class="logo"></span> Binary search analogy: books on a shelf</p>
+                        <div class="controls">
+                            <label for="target">Target value</label>
+                            <input id="target" type="number" placeholder="e.g., 42" />
+                            <label for="n">Boxes</label>
+                            <input id="n" type="range" min="8" max="36" value="20" />
+                            <button id="reset" class="secondary">Reset</button>
+                            <button id="next">Next step</button>
+                        </div>
+                        </header>
+
+                        <div class="canvas-wrap">
+                        <canvas id="board" width="1200" height="220" aria-label="Binary search canvas"></canvas>
+                        </div>
+
+                        <div class="legend">
+                        <div class="chip"><span class="swatch" style="background:#1f2937"></span> In-range boxes</div>
+                        <div class="chip"><span class="swatch" style="background:#0ea5e9"></span> Midpoint (current guess)</div>
+                        <div class="chip"><span class="swatch" style="background:#10b981"></span> Found target</div>
+                        <div class="chip"><span class="swatch" style="background:#ef4444"></span> Out-of-range (eliminated)</div>
+                        </div>
+
+                        <div class="explain" id="explain">
+                        Enter a target value and click “Next step” to begin. The shelf is sorted left-to-right.
+                        </div>
+                    </div>
+
+                
+
+            </div>
+        </div>
+  <div style="padding-bottom: 60px;">
+    <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
   </div>
 
-</body>
+
+</body> 
 </html>
