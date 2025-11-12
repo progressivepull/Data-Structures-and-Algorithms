@@ -22,6 +22,63 @@
         <div id="main-content">
             <div class="container">
 
+
+              <h1 class="analogy-title">Binary Search Analogy: Step-by-Step</h1>
+              <p>Binary search is an efficient search algorithm that works on sorted lists or arrays. Instead of checking each element one by one, it repeatedly divides the search interval in half, quickly narrowing down the possible location of the target value.</p>
+
+              <h2>How It Works</h2>
+
+              <p>The process is systematic:</p>
+              <ol>
+                  <li><strong>Start in the middle:</strong> The algorithm begins by examining the middle element of the sorted list.</li>
+                  <li><strong>Compare:</strong> It compares the middle element with the target value (the "key").</li>
+                  <li><strong>Found or Not Found:</strong>
+                      <ul>
+                          <li>If the middle element matches the target, the search is successful, and the algorithm returns the index of that element.</li>
+                          <li>If the target is smaller, the algorithm eliminates the right half and continues searching in the left half.</li>
+                          <li>If the target is larger, the algorithm eliminates the left half and continues searching in the right half.</li>
+                      </ul>
+                  </li>
+                  <li><strong>Repeat:</strong> Steps 1–3 are repeated on the remaining half until the target is found or the interval becomes empty.</li>
+                  <li><strong>End:</strong> If the interval is empty without finding the target, the search ends unsuccessfully, typically returning a "not found" message or a null/sentinel value.</li>
+              </ol>
+
+              <h2>Example</h2>
+
+              <p>Consider a sorted array of numbers: </p>
+              <div class="example-array">[2, 3, 5, 8, 10]</div>
+
+              <p>If you want to search for the target value <code>8</code>:</p>
+              <ul>
+                  <li>Check the middle element <code>5</code>. Since <code>8</code> is greater, eliminate the left half.</li>
+                  <li>Now consider the right half: [8, 10]. The new middle is <code>8</code>.</li>
+                  <li>Compare <code>8</code> with <code>8</code>. Match found! The search stops and returns the index (in this case, index 3).</li>
+              </ul>
+
+              <h2>Characteristics</h2>
+
+              <ul>
+                  <li><strong>Efficiency:</strong> Binary search is much faster than linear search for large, sorted datasets.</li>
+                  <li><strong>Sorting Required:</strong> The list must be sorted before binary search can be applied.</li>
+                  <li><strong>Time Complexity:</strong>
+                      <ul>
+                          <li>In the <strong>best-case</strong> scenario, the target is the middle element, requiring only one comparison.</li>
+                          <li>In the <strong>worst-case</strong> scenario, the search continues until the interval is reduced to zero.</li>
+                          <li>The <strong>average</strong> and worst-case time complexity is O(log n), meaning the time grows logarithmically with the list size.</li>
+                      </ul>
+                  </li>
+              </ul>
+
+              <p>Because of its O(log n) time complexity, binary search is highly efficient for large sorted lists and is widely used in practice.</p>
+
+            <h2>References</h2>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=fDKIpRe8GW4">Binary search in 4 minutes - Michael Sambol - YouTube</a></li>
+            </ul>
+
+           <br><br><br><br>
+
+
                     <div class="app">
                         <div class="header-binary">
                         <div class="controls">
