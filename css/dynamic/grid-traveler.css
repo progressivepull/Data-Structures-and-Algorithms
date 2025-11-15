@@ -1,0 +1,26 @@
+/* =============================
+File: ../css/dynamic/grid-traveler.css
+============================= */
+:root{
+  --grid-line: #999;
+  --visiting: #2196f3;
+  --memo: #4caf50;
+  --base: #ff9800;
+  --blocked: #f44336;
+}
+#stage{ background:#fff; }
+.font-mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.legend{ display:grid; grid-template-columns: 1fr 1fr; gap:.5rem 1rem; }
+.legend-swatch{ display:inline-block; width:14px; height:14px; border-radius:3px; margin-right:.5rem; vertical-align:middle; border:1px solid rgba(0,0,0,.15); }
+.legend-swatch.visiting{ background: var(--visiting); }
+.legend-swatch.memo{ background: var(--memo); }
+.legend-swatch.base{ background: var(--base); }
+.legend-swatch.blocked{ background: var(--blocked); }
+
+#main-content {
+  background-color: #e0b27d; 
+}
+
+footer{
+  background-color: #c43162;
+}

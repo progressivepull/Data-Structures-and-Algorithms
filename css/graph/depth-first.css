@@ -1,0 +1,40 @@
+/* Canvas and UI styling for DFS visualizer */
+
+#graphCanvas {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+}
+
+/* Legend pills */
+.legend {
+  display: inline-block;
+  width: 18px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.15);
+  margin-right: 6px;
+}
+
+.legend-unseen { background: #e9ecef; }     /* light gray */
+.legend-stack { background: #bee5eb; }      /* light cyan */
+.legend-current { background: #ffe08a; }    /* light yellow */
+.legend-done { background: #b7f7c6; }       /* light green */
+
+/* Badges for state panels */
+#stackView .badge, #doneView .badge {
+  font-weight: 600;
+}
+
+/* Subtle emphasis for labels */
+.form-text code {
+  color: #6c757d;
+}
+
+#main-content {
+  background-color: #6bf8bd; 
+}
+
+footer{
+  background-color: #e63e70;
+}

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Breadth-First Search Visualizer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap + your common CSS -->
+  <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="../css/graph/breadth-first.css">
+
+  <!-- Basic favicon link -->
+  <link rel="icon" href="./../favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+  <div id="main-content">
+
+  <br><br><br>
+
+  <div class="container my-5">
+  <div class="p-4 rounded-4 shadow-sm bg-light border border-1">
+    <h1 class="text-primary mb-3 fw-bold">Breadth-First Search (BFS)</h1>
+    <p class="lead">
+      Breadth-First Search (BFS) is a systematic graph traversal algorithm that explores vertices
+      level by level. Starting from a chosen source node, BFS visits all its immediate neighbors first,
+      then moves outward to their unvisited neighbors. It guarantees the shortest path (in number of edges)
+      in an unweighted graph.
+    </p>
+
+    <hr class="my-4" />
+
+    <h2 class="text-secondary mb-3">How It Works</h2>
+    <p>The process follows a clear sequence:</p>
+
+    <ol class="fs-5">
+      <li><strong>Initialize:</strong> Choose a starting node and mark it as visited.</li>
+      <li><strong>Use a Queue:</strong> Enqueue the start node into a queue (FIFO order).</li>
+      <li><strong>Process:</strong> Repeat until the queue is empty:
+        <ul>
+          <li>Dequeue a node from the front.</li>
+          <li>Visit all its unvisited neighbors.</li>
+          <li>Mark them as visited and enqueue them.</li>
+        </ul>
+      </li>
+      <li><strong>End:</strong> When the queue is empty, all reachable nodes have been explored.</li>
+    </ol>
+
+    <hr class="my-4" />
+
+    <h2 class="text-secondary mb-3">Example</h2>
+    <p>Consider the following simple graph (represented as adjacency lists):</p>
+
+    <div class="bg-white p-3 rounded border mb-3 font-monospace">
+      A: B, C<br>
+      B: D, E<br>
+      C: F<br>
+      D: —<br>
+      E: —<br>
+      F: —
+    </div>
+
+    <p>If we start BFS from node <code>A</code>:</p>
+    <ul>
+      <li>Begin with queue = [A]; mark A as visited.</li>
+      <li>Dequeue A → visit its neighbors B and C → enqueue them. Queue = [B, C]</li>
+      <li>Dequeue B → visit neighbors D and E → enqueue them. Queue = [C, D, E]</li>
+      <li>Dequeue C → visit neighbor F → enqueue it. Queue = [D, E, F]</li>
+      <li>Continue until the queue is empty. The visit order is <code>A → B → C → D → E → F</code>.</li>
+    </ul>
+
+    <hr class="my-4" />
+
+    <h2 class="text-secondary mb-3">Characteristics</h2>
+
+    <ul>
+      <li><strong>Traversal Order:</strong> Explores nodes in layers—closer nodes first, deeper ones later.</li>
+      <li><strong>Shortest Path:</strong> Ensures shortest path in unweighted graphs.</li>
+      <li><strong>Data Structure:</strong> Uses a <code>Queue</code> for node management.</li>
+      <li><strong>Applicability:</strong> Works on trees and general graphs (directed or undirected).</li>
+      <li><strong>Time Complexity:</strong> <code>O(V + E)</code>, where V = vertices and E = edges.</li>
+      <li><strong>Space Complexity:</strong> <code>O(V)</code> for storing visited and queued nodes.</li>
+    </ul>
+
+    <p class="mt-3">
+      BFS is essential in applications like shortest-path finding, social-network analysis,
+      and web-crawling algorithms, thanks to its organized, level-wise exploration.
+    </p>
+
+    <h2>References</h2>
+    <ul>
+        <li><a href="https://www.youtube.com/watch?v=HZ5YTanv5QE">Breadth-first search in 4 minutes - Michael Sambol - YouTube</a></li>
+    </ul>
+
+  </div>
+</div>
+  
+  <div class="container py-4">
+    <h1 class="mb-3 h3">Breadth-First Search (BFS) — Step Visualizer</h1>
+
+    <div class="row g-4">
+      <!-- Controls -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="nodesInput" class="form-label">Nodes (comma-separated)</label>
+              <input id="nodesInput" class="form-control" type="text"
+                     value="A,B,C,D,E,F" />
+              <div class="form-text">
+                Example: <code>A,B,C,D,E,F</code>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="edgesInput" class="form-label">Edges (comma-separated pairs)</label>
+              <input id="edgesInput" class="form-control" type="text"
+                     value="A-B,A-C,B-D,C-D,C-E,E-F" />
+              <div class="form-text">
+                Undirected edges. Example: <code>A-B,A-C,B-D,C-D,C-E,E-F</code>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="startInput" class="form-label">Start Node</label>
+              <input id="startInput" class="form-control" type="text" value="A" />
+            </div>
+
+            <div class="form-check form-switch mb-3">
+              <input class="form-check-input" type="checkbox" role="switch" id="randomizeLayout" checked>
+              <label class="form-check-label" for="randomizeLayout">Randomize layout</label>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap">
+              <button id="setupBtn" class="btn btn-primary">Setup</button>
+              <button id="stepBtn" class="btn btn-secondary" disabled>Step</button>
+              <button id="resetBtn" class="btn btn-outline-danger" disabled>Reset</button>
+            </div>
+
+            <hr class="my-4">
+
+            <div>
+              <h6 class="mb-2">BFS State</h6>
+              <div class="small">
+                <div><strong>Step:</strong> <span id="stepCount">0</span></div>
+                <div class="mt-2"><strong>Queue:</strong>
+                  <span id="queueView" class="d-inline-flex flex-wrap gap-1 align-items-center"></span>
+                </div>
+                <div class="mt-2"><strong>Visited:</strong>
+                  <span id="visitedView" class="d-inline-flex flex-wrap gap-1 align-items-center"></span>
+                </div>
+                <div class="mt-2"><strong>Current:</strong>
+                  <span id="currentView" class="badge rounded-pill text-bg-warning">—</span>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <h6 class="mb-2">Legend</h6>
+                <div class="d-flex flex-wrap gap-2 align-items-center small">
+                  <span class="legend legend-unseen"></span> Unseen
+                  <span class="legend legend-discovered"></span> Discovered (in queue)
+                  <span class="legend legend-current"></span> Current
+                  <span class="legend legend-visited"></span> Visited
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <canvas id="graphCanvas" width="960" height="560" class="w-100"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
+
+  </div>
+
+              <footer>
+              &copy; Progressive Pull. All rights reserved.
+            </footer>
+</div>
+
+  <!-- jQuery, Bootstrap, and page script -->
+  <script src="../lib/jquery-3.7.1.min.js"></script>
+  <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+  <script src="../js/graph/breadth-first.js"></script>
+</body>
+</html>

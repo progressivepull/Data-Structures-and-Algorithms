@@ -1,0 +1,30 @@
+/* =============================
+File: ../css/graph/dijkstra.css
+Styling for the Dijkstra demo. Place this file at: ../css/graph/dijkstra.css
+============================= */
+:root{
+  --node-size: 48px;
+  --settled: #4caf50;   /* green */
+  --frontier: #ffeb3b;  /* yellow */
+  --current: #2196f3;   /* blue */
+  --edge: #444;
+}
+
+.font-mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+#stage{ background:#fff; }
+.legend{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:.5rem 1rem; }
+.legend-swatch{ display:inline-block; width:14px; height:14px; border-radius:3px; margin-right:.5rem; vertical-align:middle; border:1px solid rgba(0,0,0,.15); }
+.legend-swatch.settled{ background: var(--settled); }
+.legend-swatch.frontier{ background: var(--frontier); }
+.legend-swatch.current{ background: var(--current); }
+
+/* Table tweaks */
+#distTable td, #distTable th{ white-space:nowrap; }
+
+#main-content {
+  background-color: #2861dd; 
+}
+
+footer{
+  background-color: #c54b3a;
+}

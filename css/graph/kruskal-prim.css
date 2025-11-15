@@ -1,0 +1,28 @@
+/* =============================
+File: ../css/graph/kruskal-prim.css
+============================= */
+:root{
+  --node-size: 48px;
+  --edge: #666;
+  --mst: #4caf50;
+  --consider: #2196f3;
+  --rejected: #f44336;
+  --frontier: #ffeb3b;
+}
+#stage{ background:#fff; }
+.font-mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.legend{ display:grid; grid-template-columns: 1fr 1fr; gap:.5rem 1rem; }
+.legend-swatch{ display:inline-block; width:14px; height:14px; border-radius:3px; margin-right:.5rem; vertical-align:middle; border:1px solid rgba(0,0,0,.15); }
+.legend-swatch.mst{ background: var(--mst); }
+.legend-swatch.consider{ background: var(--consider); }
+.legend-swatch.rejected{ background: var(--rejected); }
+.legend-swatch.frontier{ background: var(--frontier); }
+
+
+#main-content {
+  background-color: #d14893; 
+}
+
+footer{
+  background-color: #9235dd;
+}

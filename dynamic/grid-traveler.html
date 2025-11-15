@@ -1,0 +1,250 @@
+<!-- =============================
+File: grid-traveler.html
+Project folder: graph
+Description: Step-by-step memoized Dynamic Programming visualizer for the Grid Traveler problem using Canvas, jQuery, and Bootstrap.
+Required relative assets:
+  ../css/common.css
+  ../css/graph/grid-traveler.css
+  ../lib/jquery-3.7.1.min.js
+  ../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js
+  ../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css
+  ../js/graph/grid-traveler.js
+============================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grid Traveler — Memoization DP Visualizer</title>
+
+  <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/dynamic/grid-traveler.css">
+
+  <!-- Basic favicon link -->
+  <link rel="icon" href="./../favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+
+  <div id="main-content">
+
+      <div class="container my-5">
+        <div class="p-4 rounded-4 shadow-sm bg-light border border-1">
+          <h1 class="text-primary mb-3 fw-bold">Memoization in Dynamic Programming: Grid Traveler</h1>
+
+          <p class="lead">
+            <strong>Memoization</strong> is a top-down dynamic-programming technique that speeds up recursive
+            algorithms by <em>caching</em> subproblem results. The <strong>Grid Traveler</strong> problem asks:
+            “How many ways can you move from the top-left to the bottom-right of an <code>m × n</code> grid if you may
+            only move <em>right</em> or <em>down</em>?” (No diagonal moves.)
+          </p>
+
+          <hr class="my-4" />
+
+          <h2 class="text-secondary mb-3">How It Works</h2>
+          <p>Define the subproblem <code>T(m,n)</code> = number of ways to reach (1,1) from (m,n) using only up/left
+            (equivalently, from (1,1) to (m,n) using right/down). The recurrence:</p>
+
+          <div class="bg-white p-3 rounded border mb-3 font-monospace">
+            T(m, n) = T(m-1, n) + T(m, n-1)<br>
+            Base cases: T(1,1) = 1; &nbsp;T(m,0) = 0; &nbsp;T(0,n) = 0
+          </div>
+
+          <p>With <strong>memoization</strong>, we store each computed <code>T(m,n)</code> so repeated calls return in O(1).</p>
+
+          <h3 class="mt-4">Step-by-Step (Top-Down)</h3>
+          <ol class="fs-5">
+            <li><strong>State:</strong> Subproblem is the pair <code>(m,n)</code>.</li>
+            <li><strong>Check cache:</strong> If <code>(m,n)</code> is in the memo table, return it immediately.</li>
+            <li><strong>Base cases:</strong> Return <code>1</code> for <code>(1,1)</code>; return <code>0</code> if <code>m=0</code> or <code>n=0</code>.</li>
+            <li><strong>Recurse:</strong> Compute <code>T(m-1,n)</code> and <code>T(m,n-1)</code>, add them.</li>
+            <li><strong>Save & return:</strong> Store <code>T(m,n)</code> in the memo and return it.</li>
+          </ol>
+
+          <hr class="my-4" />
+
+          <h2 class="text-secondary mb-3">Example (3 × 3)</h2>
+          <p>Evaluate <code>T(3,3)</code>:</p>
+          <ul>
+            <li><code>T(3,3) = T(2,3) + T(3,2)</code></li>
+            <li><code>T(2,3) = T(1,3) + T(2,2)</code> and <code>T(3,2) = T(2,2) + T(3,1)</code></li>
+            <li>Subproblems like <code>T(2,2)</code> appear multiple times — memoization caches them once.</li>
+          </ul>
+          <p>The result is <strong>6</strong> distinct paths for a 3×3 grid.</p>
+
+          <!-- Optional screenshot reference; replace src with your own asset if needed.
+              <img class="img-fluid rounded border" src="sandbox:/mnt/data/Screenshot 2025-11-14 150014.png" alt="Memoized Grid Traveler demo">
+          -->
+
+          <hr class="my-4" />
+
+          <h2 class="text-secondary mb-3">Reference Implementation (JavaScript)</h2>
+          <p class="mb-2">Memo table key is the pair <code>(m,n)</code> (you can also normalize as <code>m,n</code> string).</p>
+
+          <pre class="bg-white p-3 rounded border mb-3"><code class="language-js">
+      // Top-down DP with memoization for Grid Traveler
+      function gridTraveler(m, n, memo = new Map()) {
+        const key = `${m},${n}`;                // key for (m,n)
+        if (memo.has(key)) return memo.get(key);
+        if (m === 1 && n === 1) return 1;       // base success
+        if (m === 0 || n === 0) return 0;       // base failure
+        const ways = gridTraveler(m - 1, n, memo) + gridTraveler(m, n - 1, memo);
+        memo.set(key, ways);
+        return ways;
+      }
+
+      // Example: gridTraveler(3, 3) === 6
+          </code></pre>
+
+          <h2 class="text-secondary mb-3">Blocked Cells (Optional)</h2>
+          <p>If certain cells are blocked, treat those states as 0:</p>
+          <pre class="bg-white p-3 rounded border mb-3"><code class="language-js">
+      function gridTravelerBlocked(m, n, blocked, memo = new Map()) {
+        const key = `${m},${n}`;
+        if (memo.has(key)) return memo.get(key);
+        if (m === 1 && n === 1) return blocked.has('1,1') ? 0 : 1;
+        if (m === 0 || n === 0) return 0;
+        if (blocked.has(`${m},${n}`)) return 0;
+        const ways = gridTravelerBlocked(m - 1, n, blocked, memo)
+                  + gridTravelerBlocked(m, n - 1, blocked, memo);
+        memo.set(key, ways);
+        return ways;
+      }
+          </code></pre>
+
+          <h2 class="text-secondary mb-3">Characteristics</h2>
+          <ul>
+            <li><strong>Technique:</strong> Top-down recursion + memo table (cache).</li>
+            <li><strong>Overlapping Subproblems:</strong> Same <code>(m,n)</code> requested multiple times.</li>
+            <li><strong>Optimal Substructure:</strong> <code>T(m,n)</code> depends only on <code>T(m-1,n)</code> and <code>T(m,n-1)</code>.</li>
+            <li><strong>Time Complexity:</strong> <code>O(m·n)</code> (each state computed once).</li>
+            <li><strong>Space Complexity:</strong> <code>O(m·n)</code> for the memo plus recursion depth.</li>
+          </ul>
+
+          <p class="mt-3">
+            Memoization converts the naive exponential recursion into efficient linear-in-states
+            performance, making the Grid Traveler a perfect example of top-down dynamic programming.
+          </p>
+
+            <h2>References</h2>
+            <ul>
+                    <li><a href="https://www.youtube.com/watch?v=GOOXczRKlbo">Grid Traveller [DYNAMIC PROGRAMMING] via Python. - Saumyaranjan Parida - YouTube</a></li>
+            </ul>
+
+        </div>
+
+  
+      </div>
+
+
+        <div class="container py-4">
+          <div class="row g-4">
+            <div class="col-12">
+              <h1 class="h3 mb-0">Memoization (Top-Down DP) — Grid Traveler</h1>
+            </div>
+
+            <!-- Controls -->
+            <div class="col-lg-4">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h2 class="h5">Setup</h2>
+
+                  <div class="row g-2 mb-2">
+                    <div class="col-6">
+                      <label class="form-label" for="rows">Rows (m)</label>
+                      <input type="number" class="form-control" id="rows" min="1" max="20" value="3" />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label" for="cols">Cols (n)</label>
+                      <input type="number" class="form-control" id="cols" min="1" max="20" value="3" />
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="blockList">Blocked cells (optional)</label>
+                    <textarea class="form-control font-mono" id="blockList" rows="3" placeholder="Format: r,c per line (1-indexed)"></textarea>
+                    <div class="form-text">Example: <code>2,2</code> blocks row 2 col 2.</div>
+                  </div>
+
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-secondary" id="btnSetup">Setup</button>
+                    <button class="btn btn-primary" id="btnStep">Step</button>
+                    <button class="btn btn-outline-dark" id="btnAuto">Auto</button>
+                    <button class="btn btn-outline-warning" id="btnReset">Reset</button>
+                  </div>
+
+                  <hr/>
+                  <h2 class="h6 mb-2">Legend</h2>
+                  <ul class="legend list-unstyled small mb-0">
+                    <li><span class="legend-swatch visiting"></span> Visiting subproblem (m,n)</li>
+                    <li><span class="legend-swatch memo"></span> Memoized / computed</li>
+                    <li><span class="legend-swatch base"></span> Base case</li>
+                    <li><span class="legend-swatch blocked"></span> Blocked cell</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Canvas + tables -->
+            <div class="col-lg-8">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h2 class="h5 mb-0">Grid</h2>
+                    <div class="small text-muted" id="status">Ready.</div>
+                  </div>
+                  <canvas id="stage" width="900" height="560" class="w-100 border rounded"></canvas>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-3">
+                <div class="col-12 col-xxl-6">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                      <h2 class="h6">Subproblem Trace (stack)</h2>
+                      <div class="table-responsive">
+                        <table class="table table-sm" id="stackTable">
+                          <thead><tr><th>#</th><th>(m,n)</th><th>State</th></tr></thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-xxl-6">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                      <h2 class="h6">Memo Table</h2>
+                      <div class="table-responsive">
+                        <table class="table table-sm" id="memoTable">
+                          <thead><tr><th>Key</th><th>Value</th></tr></thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
+        </div>
+
+        <footer>
+              &copy; Progressive Pull. All rights reserved.
+        </footer>
+
+  </div>
+
+  <script src="../lib/jquery-3.7.1.min.js"></script>
+  <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+  <script src="../js/dynamic/grid-traveler.js"></script>
+</body>
+</html>
+
+
+
+
+

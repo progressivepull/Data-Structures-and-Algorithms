@@ -1,0 +1,40 @@
+/* Canvas and UI styling for BFS visualizer */
+
+#graphCanvas {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+}
+
+/* Legend pills */
+.legend {
+  display: inline-block;
+  width: 18px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.15);
+  margin-right: 6px;
+}
+
+.legend-unseen { background: #e9ecef; }     /* light gray */
+.legend-discovered { background: #bee5eb; } /* light cyan */
+.legend-current { background: #ffe08a; }    /* light yellow */
+.legend-visited { background: #b7f7c6; }    /* light green */
+
+/* Queue/Visited badges */
+#queueView .badge, #visitedView .badge {
+  font-weight: 600;
+}
+
+/* Subtle emphasis for labels */
+.form-text code {
+  color: #6c757d;
+}
+
+#main-content {
+  background-color: #f8ea6b; 
+}
+
+footer{
+  background-color: #3e49e6;
+}
