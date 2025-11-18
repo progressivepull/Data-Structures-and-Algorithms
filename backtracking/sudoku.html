@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Backtracking Solver</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="../css/common.css">
+    <!-- Sudoku Specific CSS -->
+    <link rel="stylesheet" href="../css/backtracking/sudoku.css">
+
+    <!-- Basic favicon link -->
+    <link rel="icon" href="./../favicon.ico" type="image/x-icon">
+
+
+</head>
+<body>
+     <div id="main-content">
+               
+      <br><br><br>
+                <div class="container mt-5">
+                     <div class="p-4 rounded-4 shadow-sm bg-light border border-1">
+
+                            <h1>Understanding Backtracking Programming</h1>
+
+                                <p>
+                                    Backtracking is essentially a refined brute-force approach. It explores all possible solutions but <span class="highlight">prunes</span> branches of the search tree that it determines early on cannot possibly lead to a valid final answer.
+                                </p>
+
+                                <h2>The Core Concept: Depth-First Search with Pruning</h2>
+
+                                <p>Imagine you are walking through a maze. Backtracking works like this:</p>
+                                <ul>
+                                    <li>You move forward along one path as far as you can go (Depth-First Search).</li>
+                                    <li>If you hit a dead end, you realize that entire path was a mistake.</li>
+                                    <li>You "backtrack" to the last junction where you had an alternative option.</li>
+                                    <li>You mark the failed path as unusable and try the next path.</li>
+                                </ul>
+
+                                <p>This process continues until you either find the exit (a valid solution) or determine no exit exists.</p>
+
+                                <h2>Applying Backtracking to Solve a Sudoku Puzzle</h2>
+
+                                <p>A Sudoku puzzle is a perfect candidate for backtracking because it involves placing numbers (making choices) subject to strict constraints (row, column, and 3x3 box rules).</p>
+
+                                <h3>The Algorithm Steps:</h3>
+
+                                <ol>
+                                    <li>
+                                        <strong>Find an Empty Cell:</strong> The algorithm starts by locating the next empty cell (usually searching top-left to bottom-right).
+                                    </li>
+                                    <li>
+                                        <strong>Try a Number (Guess):</strong> It attempts to place a number from 1 to 9 into that empty cell.
+                                    </li>
+                                    <li>
+                                        <strong>Check Constraints (Pruning):</strong> It immediately checks if the placed number is valid according to Sudoku rules (no duplicates in the row, column, or 3x3 box).
+                                    </li>
+                                    <li>
+                                        <strong>Recurse:</strong>
+                                        <ul>
+                                            <li><strong>If Valid:</strong> The algorithm moves to the next empty cell and repeats the process (makes a recursive call).</li>
+                                            <li><strong>If Invalid:</strong> It goes to the next number (incrementing the guess from 1 towards 9).</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong>Backtrack (The 'Backtracking' Part):</strong> If all numbers from 1 to 9 have been tried in the *current* cell and none led to a solution further down the line, the algorithm:
+                                        <ul>
+                                            <li>Resets the current cell to empty (0).</li>
+                                            <li>Returns to the <strong>previous</strong> cell that was being worked on.</li>
+                                            <li>Tries the *next* possible number in that previous cell's list of options.</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong>Success:</strong> The algorithm stops when no empty cells remain, indicating a full, valid configuration has been found.
+                                    </li>
+                                </ol>
+
+                                <h3>Pseudocode Example</h3>
+                                <p>This pseudocode illustrates the recursive function at the heart of the solver:</p>
+
+                                <div class="code-block">
+                                    <code>
+                                    function solveSudoku(board):<br>
+                                    &nbsp;&nbsp;FIND row, col of next empty cell<br>
+                                    <span class="highlight">&nbsp;&nbsp;IF no empty cells remain:</span><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;RETURN TRUE (puzzle solved!)<br>
+                                    <br>
+                                    &nbsp;&nbsp;FOR number from 1 to 9:<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;IF number is VALID in board[row][col]:<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;board[row][col] = number<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">IF solveSudoku(board) is TRUE:</span><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN TRUE<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE:<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight"># BACKTRACK: Reset the cell and try next number</span><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;board[row][col] = 0 (empty)<br>
+                                    <br>
+                                    <span class="highlight">&nbsp;&nbsp;# If the loop finishes, we tried all numbers and failed.</span><br>
+                                    &nbsp;&nbsp;RETURN FALSE (triggers backtrack in the previous recursive call)
+                                    </code>
+                                </div>
+
+                                <h2>References</h2>
+                                <ul>
+                                    <li><a href="https://www.youtube.com/watch?v=eAFcj_2quWI">Let's make a sudoku solver in 5 minutes (Backtracking) - Inside code - YouTube</a></li>
+                                </ul>
+
+
+                    </div>
+                </div>
+
+
+
+                <div class="container mt-5">
+                     <div class="p-4 rounded-4 shadow-sm bg-light border border-1">
+
+                            
+                            <header class="text-center mb-4">
+                                <h1>Sudoku Solver (Backtracking)</h1>
+                                <p>Demonstration of the backtracking algorithm. Use the buttons to control the process.</p>
+                            </header>
+
+                            <main>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <div id="sudoku-board" class="d-grid gap-1">
+                                            <!-- Sudoku cells will be generated here by JavaScript -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="card p-3">
+                                            <h2>Controls</h2>
+                                            <div class="d-grid gap-2">
+                                                <button id="setup-btn" class="btn btn-primary">Setup Puzzle</button>
+                                                <button id="step-btn" class="btn btn-success" disabled>Step Algorithm</button>
+                                                <button id="auto-solve-btn" class="btn btn-info">Auto Solve</button>
+                                            </div>
+                                            <h3 class="mt-4">Status Log</h3>
+                                            <div id="status-log" class="p-2 border rounded bg-light" style="height: 200px; overflow-y: auto;">
+                                                Ready to setup.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+                    </div>
+                    <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
+                </div>
+
+        <footer>
+              &copy; Progressive Pull. All rights reserved.
+        </footer>
+
+
+     </div>
+
+    <!-- jQuery -->
+    <script src="../lib/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+    <!-- Sudoku Specific JS -->
+    <script src="../js/backtracking/sudoku.js"></script>
+</body>
+</html>

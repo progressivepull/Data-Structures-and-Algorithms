@@ -1,0 +1,87 @@
+/* Page-specific styles for Dynamic/Knapsack */
+
+.legend .legend-pill {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  border: 1px solid rgba(0,0,0,.075);
+}
+
+.legend-call   { background: #eef6ff; color: #0b5ed7; }
+.legend-miss   { background: #fff2e6; color: #b76e00; }
+.legend-hit    { background: #fff9db; color: #8a6d00; }
+.legend-base   { background: #f0f9ff; color: #087990; }
+.legend-set    { background: #eaf7ea; color: #0f5132; }
+.legend-return { background: #f3f0ff; color: #3b2f8a; }
+.legend-active { background: #e7f1ff; color: #0a58ca; }
+
+.viz-canvas {
+  width: 100%;
+  max-width: 100%;
+  border: 1px dashed #ced4da;
+  border-radius: .5rem;
+  display: block;
+}
+
+/* Memo table */
+.memo-scroll {
+  max-height: 560px;
+  overflow: auto;
+  background: #fff;
+}
+
+.memo-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  min-width: 100%;
+}
+
+.memo-table th,
+.memo-table td {
+  border: 1px solid #dee2e6;
+  padding: .25rem .4rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-size: .875rem;
+  min-width: 46px;
+}
+
+.memo-table th.sticky {
+  position: sticky;
+  background: #f8f9fa;
+  z-index: 2;
+}
+.memo-table th.sticky.top { top: 0; }
+.memo-table th.sticky.left { left: 0; z-index: 3; }
+
+.cell-empty { color: #adb5bd; }
+.cell-computed { background: #e9f7ef; font-weight: 700; }
+.cell-active { background: #e7f1ff; font-weight: 700; outline: 2px solid #74a7ff; }
+.cell-hit { background: #fff3cd; font-weight: 700; outline: 2px dashed #ffec99; }
+
+
+#main-content {
+  background-color: #e0a57d; 
+}
+
+footer{
+  background-color: #6925d6;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Knapsack (Memoization) — Dynamic Programming Visualizer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS (required path) -->
+  <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css" />
+
+  <!-- Common + page CSS (required paths) -->
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/dynamic/knapsack.css" />
+
+  <!-- Basic favicon link -->
+  <link rel="icon" href="./../favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <div id="main-content">
+      <br><br><br>
+
+        <div class="container py-4">
+            <div class="p-4 rounded-4 shadow-sm bg-light border border-1">
+
+                <h1>Dynamic Programming and the 1/0 Knapsack Problem</h1>
+
+                <h2>1. Introduction to Dynamic Programming</h2>
+                <p>
+                    <strong>Dynamic Programming (DP)</strong> is a method used in computer science and mathematics 
+                    to solve problems by breaking them down into smaller subproblems. 
+                    It is particularly useful when a problem exhibits two key properties:
+                </p>
+                <ul>
+                    <li><strong>Overlapping Subproblems:</strong> The problem can be divided into subproblems that are reused multiple times.</li>
+                    <li><strong>Optimal Substructure:</strong> The optimal solution to the problem can be constructed from the optimal solutions of its subproblems.</li>
+                </ul>
+                <p>
+                    Dynamic programming is often implemented using either a <em>top-down (memoization)</em> or 
+                    <em>bottom-up (tabulation)</em> approach.
+                </p>
+
+                <h2>2. The Knapsack Problem</h2>
+                <p>
+                    The <strong>0/1 Knapsack Problem</strong> is one of the most famous examples that demonstrate the 
+                    concept of dynamic programming. The problem is defined as follows:
+                </p>
+                <blockquote>
+                    Given <code>n</code> items, each with a weight <code>w[i]</code> and a value <code>v[i]</code>, 
+                    determine the maximum total value that can be obtained by selecting items without exceeding 
+                    the total capacity <code>W</code> of the knapsack.
+                </blockquote>
+
+                <h2>3. Mathematical Formulation</h2>
+                <p>
+                    Let <code>K[i][w]</code> represent the maximum value that can be obtained from the first <code>i</code> items 
+                    with a total weight limit of <code>w</code>.
+                </p>
+                <p>The recurrence relation is:</p>
+                <pre>
+            K[i][w] = 
+                0                              if i = 0 or w = 0
+                K[i-1][w]                      if w[i] > w
+                max(v[i] + K[i-1][w - w[i]], 
+                    K[i-1][w])                 otherwise
+                </pre>
+
+                <h2>4. Algorithm (Bottom-Up Approach)</h2>
+                <pre>
+            Algorithm Knapsack(W, wt[], val[], n):
+                Create a table K[n+1][W+1]
+
+                for i from 0 to n:
+                    for w from 0 to W:
+                        if i == 0 or w == 0:
+                            K[i][w] = 0
+                        else if wt[i-1] <= w:
+                            K[i][w] = max(val[i-1] + K[i-1][w - wt[i-1]], K[i-1][w])
+                        else:
+                            K[i][w] = K[i-1][w]
+                
+                return K[n][W]
+                </pre>
+
+                <h2>5. Example</h2>
+                <p>Suppose we have the following items:</p>
+                <table >
+                    <tr>
+                        <th>Item</th>
+                        <th>Weight</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr><td>1</td><td>1</td><td>1</td></tr>
+                    <tr><td>2</td><td>3</td><td>4</td></tr>
+                    <tr><td>3</td><td>4</td><td>5</td></tr>
+                    <tr><td>4</td><td>5</td><td>7</td></tr>
+                </table>
+                <br>
+                <p>
+                    If the knapsack capacity <code>W = 7</code>, the maximum value that can be obtained 
+                    using dynamic programming is <strong>9</strong>.
+                </p>
+
+                <h2>6. Conclusion</h2>
+                <p>
+                    The <strong>Knapsack Problem</strong> demonstrates how dynamic programming 
+                    efficiently solves optimization problems by storing and reusing subproblem results. 
+                    This approach avoids redundant calculations and improves performance significantly.
+                </p>
+
+                <h2>References</h2>
+                <ul>
+                        <li><a href="https://www.youtube.com/watch?v=qxWu-SeAqe4">0/1 Knapsack Problem Explained Visually - ByteQuest - YouTube</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=cJ21moQpofY">0/1 Knapsack problem | Dynamic Programming - WilliamFiset - YouTube</a></li>
+                </ul>
+
+              </div>
+        </div>
+
+        <div class="container py-4">
+
+            <h1 class="h3 mb-1">Knapsack — Memoization (Top-Down) • Step Visualizer</h1>
+
+          <!-- Controls -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <div class="row g-3 align-items-end">
+                <div class="col-12 col-md-4">
+                  <label for="weightsInput" class="form-label">Weights (comma-separated)</label>
+                  <input id="weightsInput" type="text" class="form-control" placeholder="e.g. 2,3,4,5" />
+                </div>
+                <div class="col-12 col-md-4">
+                  <label for="valuesInput" class="form-label">Values (comma-separated)</label>
+                  <input id="valuesInput" type="text" class="form-control" placeholder="e.g. 3,4,5,8" />
+                </div>
+                <div class="col-6 col-md-2">
+                  <label for="capacityInput" class="form-label">Capacity (W)</label>
+                  <input id="capacityInput" type="number" min="0" class="form-control" placeholder="e.g. 5" />
+                </div>
+                <div class="col-6 col-md-2 d-grid gap-2 gap-md-0">
+                  <button id="setupBtn" class="btn btn-primary w-100 mb-2">Setup</button>
+                  <button id="stepBtn" class="btn btn-outline-primary w-100">Step</button>
+                </div>
+              </div>
+              <div class="small text-muted mt-2">
+                Tip: Keep capacity ≤ 30 for an easier-to-read table. You can step through every recursion call, memo hit, and memo set.
+              </div>
+            </div>
+          </div>
+
+          <!-- Status / Legend -->
+          <div class="row g-3 mb-4">
+            <div class="col-12 col-lg-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-header py-2">
+                  <strong>Current Step</strong>
+                </div>
+                <div class="card-body small">
+                  <div id="statusText" class="mb-2">Press <strong>Setup</strong> to initialize.</div>
+                  <div class="legend d-flex flex-wrap gap-3">
+                    <span class="legend-pill legend-call">Call</span>
+                    <span class="legend-pill legend-miss">Memo Miss</span>
+                    <span class="legend-pill legend-hit">Memo Hit</span>
+                    <span class="legend-pill legend-base">Base Case</span>
+                    <span class="legend-pill legend-set">Memo Set</span>
+                    <span class="legend-pill legend-return">Return</span>
+                    <span class="legend-pill legend-active">Active</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="col-12 col-lg-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-header py-2">
+                  <strong>Summary</strong>
+                </div>
+                <div class="card-body small">
+                  <div class="row">
+                    <div class="col-6">Items: <span id="summaryN">—</span></div>
+                    <div class="col-6">Capacity: <span id="summaryW">—</span></div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-6">Steps: <span id="summarySteps">—</span></div>
+                    <div class="col-6">Result: <span id="summaryAns">—</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visualization -->
+          <div class="row g-3">
+            <div class="col-12 col-xl-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-header py-2"><strong>Recursion Tree (Canvas)</strong></div>
+                <div class="card-body">
+                  <canvas id="vizCanvas" class="viz-canvas" width="900" height="560" aria-label="Recursion Tree"></canvas>
+                  <div class="form-text">Nodes are states (i, w). Edges show calls. Colors update as you step.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-header py-2"><strong>Memo Table <code>memo[i][w]</code></strong></div>
+                <div class="card-body">
+                  <div id="memoTableContainer" class="memo-scroll border rounded"></div>
+                  <div class="form-text">Cells fill on memo set; green = computed, blue = active, yellow = memo hit.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
+
+        </div>
+
+        <footer>
+              &copy; Progressive Pull. All rights reserved.
+        </footer>
+
+    </div>
+
+  <!-- jQuery + Bootstrap JS (required paths) -->
+  <script src="../lib/jquery-3.7.1.min.js"></script>
+  <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+
+  <!-- Page JS (required path) -->
+  <script src="../js/dynamic/knapsack.js"></script>
+</body>
+</html>

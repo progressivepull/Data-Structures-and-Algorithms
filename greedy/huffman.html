@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huffman Algorithm Demonstration</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <!-- Include Common CSS -->
+    <link rel="stylesheet" href="../css/common.css">
+    <!-- Include Page Specific CSS -->
+    <link rel="stylesheet" href="../css/greedy/huffman.css">
+
+    <!-- Basic favicon link -->
+    <link rel="icon" href="./../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div id="main-content">
+
+    <br><br><br>
+
+        <div class="container mt-4">
+        <div class="p-4 rounded-4 shadow-sm bg-light border border-1">
+
+
+                <header>
+                    <h1>Explanation of Greedy Programming with the Huffman Algorithm</h1>
+                </header>
+
+                <section>
+                    <h2>What is Greedy Programming?</h2>
+                    <p>
+                    Greedy programming is an algorithmic paradigm for solving optimization problems.
+                    The approach is to make the best possible choice at each immediate step, hoping
+                    that these local optimal choices will lead to a globally optimal solution. Greedy
+                    algorithms are popular for their simplicity and efficiency, although they don't
+                    always guarantee a global optimum for all problems. The <strong>Huffman coding</strong>
+                    algorithm is a classic example where the greedy strategy does produce an optimal result.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>The Huffman Coding Problem</h2>
+                    <p>
+                    Huffman coding is a widely used data compression technique. The goal is to build an
+                    optimal <em>prefix code</em> (a binary code where no code word is a prefix of another)
+                    for a given set of symbols (e.g., characters in a text file) based on their frequencies.
+                    Optimality is measured by minimizing the total length of the compressed data.
+                    </p>
+                    <p>
+                    Symbols that appear more frequently should ideally have shorter binary codes, while
+                    less frequent symbols can have longer codes. This minimizes the average code length
+                    and maximizes compression.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>The Greedy Approach for Huffman Coding</h2>
+                    <p>
+                    The core greedy strategy in the Huffman algorithm is to repeatedly merge the two symbols
+                    (or nodes) with the smallest frequencies. By always prioritizing the least frequent items
+                    for combination, the algorithm ensures they end up deeper in the binary tree (longer codes),
+                    while frequent items stay near the root (shorter codes).
+                    </p>
+
+                    <h3>The Algorithm Steps</h3>
+                    <ol>
+                    <li>
+                        <strong>Initialize:</strong> Create a leaf node for each symbol with its frequency. Place all nodes
+                        into a <em>min-priority queue</em> keyed by frequency.
+                    </li>
+                    <li>
+                        <strong>Iterate and Merge:</strong> While there is more than one node in the queue:
+                        <ol>
+                        <li>Remove the two nodes with the minimum frequencies (say, <code>x</code> and <code>y</code>).</li>
+                        <li>Create a new internal node <code>z</code> with frequency <code>freq(x) + freq(y)</code>.</li>
+                        <li>Make <code>x</code> and <code>y</code> children of <code>z</code>.</li>
+                        <li>Insert <code>z</code> back into the priority queue.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Result:</strong> The final remaining node is the root of the optimal Huffman tree. Generate codes by
+                        traversing the tree (e.g., assign <code>0</code> to left edges and <code>1</code> to right edges).
+                    </li>
+                    </ol>
+
+                    <div class="note">
+                    <strong>Why does this work?</strong>
+                    <p>
+                        The greedy choice of always merging the two smallest frequencies is optimal. It pushes
+                        infrequent symbols deeper in the tree, minimizing their contribution to the total encoded
+                        length. This is proven to yield the canonical Huffman code with minimum average code length
+                        for the given frequencies.
+                    </p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Example Walkthrough</h2>
+
+                    <h3>Given Symbols and Frequencies</h3>
+                    <table aria-label="Symbol Frequencies">
+                    <thead>
+                        <tr>
+                        <th>Character</th>
+                        <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>a</td><td>5</td></tr>
+                        <tr><td>b</td><td>9</td></tr>
+                        <tr><td>c</td><td>12</td></tr>
+                        <tr><td>d</td><td>13</td></tr>
+                        <tr><td>e</td><td>16</td></tr>
+                        <tr><td>f</td><td>45</td></tr>
+                    </tbody>
+                    </table>
+
+                    <h3>Execution (Priority Queue States)</h3>
+                    <ol>
+                    <li><strong>Step 1:</strong> Initial queue: {a:5, b:9, c:12, d:13, e:16, f:45}.</li>
+                    <li><strong>Step 2:</strong> Merge a(5) + b(9) → 14. Queue: {c:12, d:13, ab:14, e:16, f:45}.</li>
+                    <li><strong>Step 3:</strong> Merge c(12) + d(13) → 25. Queue: {ab:14, e:16, cd:25, f:45}.</li>
+                    <li><strong>Step 4:</strong> Merge ab(14) + e(16) → 30. Queue: {cd:25, abe:30, f:45}.</li>
+                    <li><strong>Step 5:</strong> Merge cd(25) + abe(30) → 55. Queue: {f:45, cdabe:55}.</li>
+                    <li><strong>Step 6:</strong> Merge f(45) + cdabe(55) → 100. Root frequency: 100.</li>
+                    </ol>
+
+                    <h3>Example Codes From the Resulting Tree</h3>
+                    <p class="codes" aria-label="Example Huffman Codes">
+                    <code>f: 0</code>
+                    <code>c: 100</code>
+                    <code>d: 101</code>
+                    <code>a: 1100</code>
+                    <code>b: 1101</code>
+                    <code>e: 111</code>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Algorithm in Pseudocode</h2>
+                    <pre><code>Algorithm HuffmanCoding(Symbols, Frequencies):
+                Input: Symbols (S) and their Frequencies (Freq).
+                Output: The root node of the Huffman tree.
+
+                Q = CreatePriorityQueue()  // min-priority by frequency
+                for i from 1 to number of symbols:
+                    node = CreateNode(S[i], Freq[i])   // leaf
+                    Insert(Q, node)
+
+                while Size(Q) &gt; 1:
+                    left  = ExtractMin(Q)
+                    right = ExtractMin(Q)
+                    sumFreq = left.frequency + right.frequency
+
+                    internalNode = CreateNode(null, sumFreq)
+                    internalNode.left  = left
+                    internalNode.right = right
+
+                    Insert(Q, internalNode)
+
+                return ExtractMin(Q) // root of the Huffman tree
+                </code></pre>
+                </section>
+
+            <h2>References</h2>
+            <ul>
+                    <li><a href="https://www.youtube.com/watch?v=iEm1NRyEe5c">Huffman coding step-by-step example - Pizzey Technology - YouTube</a></li>
+            </ul>
+
+
+
+        </div>
+      </div>
+
+
+            <div class="container mt-5">
+                <h1 class="text-center mb-4">Greedy Programming with Huffman Algorithm</h1>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="input-string" class="form-label">Input String (e.g., "hello world"):</label>
+                        <input type="text" id="input-string" class="form-control" value="programming is fun">
+                    </div>
+                    <div class="col-md-6 d-flex align-items-end">
+                        <button id="setup-btn" class="btn btn-primary me-2">Setup Frequencies</button>
+                        <button id="step-btn" class="btn btn-success" disabled>Step Algorithm</button>
+                        <button id="reset-btn" class="btn btn-secondary ms-2" disabled>Reset</button>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Algorithm Steps & Visualization
+                    </div>
+                    <div class="card-body">
+                        <p id="status-message" class="alert alert-info">Enter a string and click 'Setup Frequencies' to begin.</p>
+                        <canvas id="huffman-canvas" width="800" height="400" style="border:1px solid #000;"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        Current Priority Queue (Min Heap)
+                    </div>
+                    <div class="card-body" id="priority-queue-display">
+                        <!-- Priority queue items will be displayed here -->
+                    </div>
+                </div>
+                <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
+
+            </div>
+
+            <footer>
+                &copy; Progressive Pull. All rights reserved.
+            </footer>
+
+    </div>
+
+    <!-- Include JQuery -->
+    <script src="../lib/jquery-3.7.1.min.js"></script>
+    <!-- Include Bootstrap JS -->
+    <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+    <!-- Include Page Specific JS -->
+    <script src="../js/greedy/huffman.js"></script>
+</body>
+</html>

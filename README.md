@@ -8,10 +8,10 @@ This kind of sandbox is ideal for beginners and advanced users alike, fostering 
 # VIB Prompt
 
 
-Write program demonstrate Memoization in Dynamic Programming with Grid Traveler Algorithm.
+Write program demonstrate Backtracking Programming with Sudoku Solver Algorithm.
 
-The file names are grid-traveler
-The folder names are graph 
+The file names are sudoku 
+The folder names are backtracking 
 
 Write HTML, JavaScript, canvass, CSS, JQuery, and Bootstrap. 
 Put text fields for input values. 
@@ -35,6 +35,4 @@ Have a setup and step button. The setup button initial the values of the program
 Graphically show each step of the algorithm.
 
 # Explain Prompt
-Write Memoization in Dynamic Programming wirh Grid Traveler Algorithm. Uses as an example. 
-
-dynamic
+Write explain Backtracking  Programming with Sudoku Solver Algorithm. Write with html tags. Example as followings 

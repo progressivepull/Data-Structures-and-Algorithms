@@ -1,0 +1,31 @@
+/* nqueens.css */
+.canvas-container {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    display: inline-block;
+}
+#nQueensCanvas {
+    display: block;
+}
+
+#main-content {
+  background-color: #e07db7; 
+}
+
+footer{
+  background-color: #7d31c4;
+}
+
+pre {
+  background-color: #eee;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: monospace;
+}
+ul, ol {
+  margin-bottom: 15px;
+}
+li {
+  margin-bottom: 5px;
+}

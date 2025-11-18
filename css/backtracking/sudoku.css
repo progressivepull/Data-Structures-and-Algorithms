@@ -1,0 +1,101 @@
+/* Container for the 9x9 grid */
+#sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    border: 3px solid #333;
+}
+
+/* Individual cell styling */
+.sudoku-cell {
+    aspect-ratio: 1 / 1; /* Keep cells square */
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    background-color: #fff;
+    transition: background-color 0.3s, transform 0.1s;
+    box-sizing: border-box;
+}
+
+/* Thick borders for 3x3 subgrids */
+.sudoku-cell:nth-child(9n+3),
+.sudoku-cell:nth-child(9n+6) {
+    border-right: 2px solid #333;
+}
+
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid #333;
+}
+
+.sudoku-cell:nth-child(9n+4),
+.sudoku-cell:nth-child(9n+7) {
+    border-left: 2px solid #333;
+}
+
+.sudoku-cell:nth-child(n+28):nth-child(-n+36),
+.sudoku-cell:nth-child(n+55):nth-child(-n+63) {
+    border-top: 2px solid #333;
+}
+
+
+/* Styling for input fields within cells */
+.sudoku-input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: none;
+    font-size: 1.2rem;
+    padding: 0;
+}
+
+/* Highlight for original fixed numbers */
+.fixed-value {
+    background-color: #eee;
+    font-weight: bold;
+    cursor: not-allowed;
+}
+
+/* Highlighting during algorithm steps */
+.current-cell {
+    background-color: #ffeb3b !important; /* Yellow for current focus */
+}
+
+.backtrack-cell {
+    background-color: #ff9800 !important; /* Orange when backtracking */
+}
+
+.solved-cell {
+    background-color: #4caf50 !important; /* Green for solved cells */
+    color: white;
+}
+
+.error-cell {
+    background-color: #f44336 !important; /* Red for errors (briefly) */
+    color: white;
+}
+
+#main-content {
+  background-color: #5390d4; 
+}
+
+footer{
+  background-color: #be4a4a;
+}
+
+.code-block {
+   background-color: #f4f4f4;
+   padding: 15px;
+   border-radius: 5px;
+   font-family: monospace;
+   overflow-x: auto;
+}
+.highlight {
+   font-weight: bold;
+   color: #d9534f;
+}

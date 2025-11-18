@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N-Queens Backtracking Demonstration</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../lib/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="../css/common.css">
+    <!-- Page Specific CSS -->
+    <link rel="stylesheet" href="../css/backtracking/nqueens.css">
+    
+    <!-- Basic favicon link -->
+    <link rel="icon" href="./../favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <div id="main-content">
+               
+      <br><br><br>
+
+        <div class="container mt-5">
+                <div class="p-4 rounded-4 shadow-sm bg-light border border-1">
+
+                            <h1>Backtracking Programming with N-Queens Algorithm</h1>
+
+        <p>
+            Backtracking is a problem-solving algorithmic technique that explores all possible solutions by building them step by step and then abandoning (backtracking from) any path that fails to satisfy the problem's constraints. It's a form of informed brute-force search that is well-suited to the N-Queens problem because it prunes unviable solution branches, significantly reducing the search space.
+        </p>
+
+        <hr>
+
+        <h2>The N-Queens Problem</h2>
+        <p>
+            The N-Queens problem challenges you to place $N$ chess queens on an $N \times N$ chessboard so that no two queens attack each other. A queen can attack horizontally, vertically, and diagonally. Therefore, a valid solution must ensure that no two queens share the same:
+        </p>
+        <ul>
+            <li>Row</li>
+            <li>Column</li>
+            <li>Main diagonal (top-left to bottom-right)</li>
+            <li>Anti-diagonal (top-right to bottom-left)</li>
+        </ul>
+
+        <hr>
+
+        <h2>Backtracking Algorithm for N-Queens</h2>
+        <p>
+            The standard backtracking approach for the N-Queens problem involves placing one queen per row, one by one, from the first row to the last.
+        </p>
+        <p>
+            The algorithm uses a recursive function that attempts to place a queen in each column of the current row:
+        </p>
+
+        <pre>
+function solveNQueens(row, N, board):
+    if row == N:
+        // All queens placed successfully, add board to solutions
+        printSolution(board)
+        return
+
+    for col from 0 to N-1:
+        if isSafe(row, col, board):
+            // Place queen
+            board[row][col] = 'Q'
+            // Recurse to next row
+            solveNQueens(row + 1, N, board)
+            // Backtrack: remove queen and try next column
+            board[row][col] = '.'
+        </pre>
+
+        <hr>
+
+        <h2>Algorithm Steps Explained</h2>
+
+        <ol>
+            <li>
+                <strong>Start at the first row:</strong> The process begins by trying to place a queen in a column of the first row.
+            </li>
+            <li>
+                <strong>Check for safety:</strong> For each potential position (row, col), the algorithm checks if placing a queen there is safe from previous queens (in previous rows).
+                <ul>
+                    <li>No other queen in the same column.</li>
+                    <li>No other queen in the same main diagonal (row - col is constant).</li>
+                    <li>No other queen in the same anti-diagonal (row + col is constant).</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Place and Recurse:</strong> If the position is safe, the queen is placed, and the function recursively calls itself for the next row. This "explores" the current valid path.
+            </li>
+            <li>
+                <strong>Backtrack:</strong> If the recursive call returns (meaning no safe position was found in a subsequent row), the current queen is removed from its position, and the algorithm tries the next column in the current row. This is the "backtracking" step.
+            </li>
+            <li>
+                <strong>Repeat:</strong> Steps 2-4 repeat until a solution is found (all $N$ queens placed) or all possibilities have been explored. Once a solution is found, the function continues to backtrack to find all other distinct solutions.
+            </li>
+        </ol>
+
+        <hr>
+
+        <h2>Example Visualization (N=4)</h2>
+        <p>Imagine placing the first queen at <code>(0, 0)</code>:</p>
+
+        <pre>
+Q . . .
+. . . .
+. . . .
+. . . .
+        </pre>
+
+        <p>Moving to row 1, we find we can't place a queen in column 0 (same column), 1 (diagonal), or 2 (diagonal). We try column 3:</p>
+
+        <pre>
+Q . . .
+. . . Q
+. . . .
+. . . .
+        </pre>
+
+        <p>
+            Moving to row 2, we find no safe column to place a queen. Column 0 and 3 are blocked by diagonals from the queen in row 1, etc. Because we get stuck, we <strong>backtrack</strong> and move the queen in row 1 to the next available position (none available, so we would technically backtrack to row 0 in a real run, but we can see the logic).
+        </p>
+        <p>A correct partial configuration might look like placing the first queen at <code>(0, 1)</code>:</p>
+
+        <pre>
+. Q . .
+. . . .
+. . . .
+. . . .
+        </pre>
+
+        <p>
+            By systematically using backtracking, the algorithm efficiently navigates the search space to find all valid N-Queens configurations.
+        </p>
+
+            <h2>References</h2>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=0DeznFqrgAI">N Queen Problem | Backtracking | GeeksforGeeks - YouTube</a></li>
+            </ul>
+
+                </div>
+        </div>
+
+
+            <div class="container mt-5">
+                <div class="p-4 rounded-4 shadow-sm bg-light border border-1">
+                        <h1 class="mb-4">N-Queens Problem Algorithm Demonstration</h1>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="boardSize" class="form-label">Board Size (N):</label>
+                                <input type="number" id="boardSize" class="form-control" value="4" min="1" max="15">
+                            </div>
+                            <div class="col-md-8 d-flex align-items-end">
+                                <button id="setupBtn" class="btn btn-primary me-2">Setup Board</button>
+                                <button id="stepBtn" class="btn btn btn-secondary" disabled>Step Algorithm</button>
+                            </div>
+                        </div>
+
+                        <div id="statusAlert" class="alert alert-info" role="alert">
+                            Enter N and click 'Setup Board' to begin.
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="nQueensCanvas" width="500" height="500">
+                                Your browser does not support the HTML canvas tag.
+                            </canvas>
+                        </div>
+                </div>
+
+                <a class="official-link" href="./../index.html">Data Structures and Algorithms Official Website</a>
+
+            </div>
+
+        <footer>
+              &copy; Progressive Pull. All rights reserved.
+        </footer>
+
+    </div>
+
+    <!-- jQuery -->
+    <script src="../lib/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../lib/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+    <!-- Page Specific JS -->
+    <script src="../js/backtracking/nqueens.js"></script>
+
+</body>
+</html>
